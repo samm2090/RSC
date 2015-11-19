@@ -1,0 +1,46 @@
+﻿@model Dominio.Core.Entities.Usuario
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>LOGIN</h2>
+
+@using (Html.BeginForm("Login","Index")){
+    
+    @Html.LabelFor(model=>model.email_usu)  @Html.EditorFor(model=>model.email_usu)
+    <br/>
+
+    @Html.LabelFor(model => model.email_usu)  @Html.EditorFor(model => model.email_usu)
+    <br />
+    <input type="submit" value="Ingresar" />
+}        
+
+<br/>
+<br/>
+<br/>
+
+<h2>Registarse</h2>
+
+@using (Html.BeginForm("Registrar", "Index",FormMethod.Post))
+{
+
+    @Html.LabelFor(model => model.nom_usu)  @Html.EditorFor(model => model.nom_usu)
+    <br />
+    @Html.LabelFor(model => model.apePat_usu)  @Html.EditorFor(model => model.apePat_usu)
+    <br />
+    @Html.LabelFor(model => model.apeMat_usu)  @Html.EditorFor(model => model.apeMat_usu)
+    <br />
+    @Html.LabelFor(model => model.fecNac_usu)  @Html.EditorFor(model => model.fecNac_usu)
+    <br />
+    @Html.LabelFor(model => model.email_usu)  @Html.EditorFor(model => model.email_usu)
+    <br />
+    @Html.LabelFor(model => model.sexo_usu)  @Html.EditorFor(model => model.sexo_usu)
+    <br />
+    @Html.LabelFor(model => model.contr_usu)  @Html.EditorFor(model => model.contr_usu)
+    <br />
+    <input type="submit" value="Ingresar" />
+}    
+
+    
+

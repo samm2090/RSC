@@ -1,0 +1,5 @@
+C:\Proyecto_DEW\Dominio.Core.Entities\bin\Debug\Dominio.Core.Entities.dll
+C:\Proyecto_DEW\Dominio.Core.Entities\bin\Debug\Dominio.Core.Entities.pdb
+C:\Proyecto_DEW\Dominio.Core.Entities\obj\Debug\Dominio.Core.Entities.csprojResolveAssemblyReference.cache
+C:\Proyecto_DEW\Dominio.Core.Entities\obj\Debug\Dominio.Core.Entities.dll
+C:\Proyecto_DEW\Dominio.Core.Entities\obj\Debug\Dominio.Core.Entities.pdb

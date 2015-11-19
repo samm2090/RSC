@@ -16,7 +16,7 @@ namespace Infraestructura.Data.SQLServer
         SqlDataReader reader;
 
 
-        public String IngresarCualidadesUsuarios(Usuario usuario, Cualidad cualidad)
+        public String IngresarCualidadesUsuarios(Usuario usuario, List<Cualidad> cualidades)
         {
             try
             {
@@ -24,11 +24,12 @@ namespace Infraestructura.Data.SQLServer
                 cmd = new SqlCommand();
                 cmd.Connection = conexion;
 
-
-                cmd.CommandText = "INSERT INTO tb_Cualidades_Usuario(cod_usu,cod_cua) INTO(@cod_usu,@cod_cua)";
-                cmd.Parameters.AddWithValue("@cod_usu", usuario.cod_usu);
-                cmd.Parameters.AddWithValue("@cod_cua", cualidad.cod_cua);
-
+                foreach (Cualidad cualidad in cualidades)
+                {
+                    cmd.CommandText = "INSERT INTO tb_Cualidades_Usuario(cod_usu,cod_cua) INTO(@cod_usu,@cod_cua)";
+                    cmd.Parameters.AddWithValue("@cod_usu", usuario.cod_usu);
+                    cmd.Parameters.AddWithValue("@cod_cua", cualidad.cod_cua);
+                }
 
                 cmd.CommandType = CommandType.Text;
                 conexion.Open();

@@ -1,0 +1,9 @@
+C:\Proyecto_DEW\Dominio.MainModule\bin\Debug\Dominio.MainModule.dll
+C:\Proyecto_DEW\Dominio.MainModule\bin\Debug\Dominio.MainModule.pdb
+C:\Proyecto_DEW\Dominio.MainModule\bin\Debug\Dominio.Core.Entities.dll
+C:\Proyecto_DEW\Dominio.MainModule\bin\Debug\Infraestructura.Data.SQLServer.dll
+C:\Proyecto_DEW\Dominio.MainModule\bin\Debug\Dominio.Core.Entities.pdb
+C:\Proyecto_DEW\Dominio.MainModule\bin\Debug\Infraestructura.Data.SQLServer.pdb
+C:\Proyecto_DEW\Dominio.MainModule\obj\Debug\Dominio.MainModule.csprojResolveAssemblyReference.cache
+C:\Proyecto_DEW\Dominio.MainModule\obj\Debug\Dominio.MainModule.dll
+C:\Proyecto_DEW\Dominio.MainModule\obj\Debug\Dominio.MainModule.pdb

@@ -91,9 +91,9 @@ Create table tb_Usuario(
     apeMat_usu varchar(50) not null,
     fecReg_usu date not null default getDate(),
     fecNac_usu date not null,
-    email_usu varchar(50) not null,
+    email_usu varchar(50) not null unique,
     contr_usu varchar(25) not null,
-    sexo_usu char(1) not null,
+    sexo_usu char(1) not null check (sexo_usu in('M','F')),
     cod_estCue int not null default 1,
 
 	Constraint pk_cod_usu primary key (cod_usu),

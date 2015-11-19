@@ -1,0 +1,7 @@
+C:\Proyecto_DEW\Infraestructura.Data.SQLServer\bin\Debug\Infraestructura.Data.SQLServer.dll
+C:\Proyecto_DEW\Infraestructura.Data.SQLServer\bin\Debug\Infraestructura.Data.SQLServer.pdb
+C:\Proyecto_DEW\Infraestructura.Data.SQLServer\bin\Debug\Dominio.Core.Entities.dll
+C:\Proyecto_DEW\Infraestructura.Data.SQLServer\bin\Debug\Dominio.Core.Entities.pdb
+C:\Proyecto_DEW\Infraestructura.Data.SQLServer\obj\Debug\Infraestructura.Data.SQLServer.csprojResolveAssemblyReference.cache
+C:\Proyecto_DEW\Infraestructura.Data.SQLServer\obj\Debug\Infraestructura.Data.SQLServer.dll
+C:\Proyecto_DEW\Infraestructura.Data.SQLServer\obj\Debug\Infraestructura.Data.SQLServer.pdb

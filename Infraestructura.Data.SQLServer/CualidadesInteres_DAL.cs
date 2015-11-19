@@ -15,18 +15,19 @@ namespace Infraestructura.Data.SQLServer
         SqlCommand cmd;
         SqlDataReader reader;
 
-        public String IngresarCualidadInteres(Usuario usuario,Cualidad cualidad)
+        public String IngresarCualidadInteres(Usuario usuario,List<Cualidad> cualidades)
         {
              try{
                  conexion = new Conexion().Conectar();
                 cmd = new SqlCommand();
                 cmd.Connection = conexion;
 
-
-                cmd.CommandText = "INSERT INTO tb_Cualidades_Interes(cod_usu,cod_cua) INTO(@cod_usu,@cod_cua)";
-                cmd.Parameters.AddWithValue("@cod_usu", usuario.cod_usu);
-                cmd.Parameters.AddWithValue("@cod_cua", cualidad.cod_cua);
-                
+                foreach (Cualidad cualidad in cualidades)
+                {
+                    cmd.CommandText = "INSERT INTO tb_Cualidades_Interes(cod_usu,cod_cua) INTO(@cod_usu,@cod_cua)";
+                    cmd.Parameters.AddWithValue("@cod_usu", usuario.cod_usu);
+                    cmd.Parameters.AddWithValue("@cod_cua", cualidad.cod_cua);
+                }
 
                 cmd.CommandType = CommandType.Text;
                 conexion.Open();

@@ -8,7 +8,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Dominio.Core.Entities
 {
-    class CualidadesInteres
+    public class CualidadesInteres
     {
         [DisplayName("Codigo de usuario")]
         public int cod_usu { get; set; }

@@ -15,9 +15,49 @@ namespace Infraestructura.Data.SQLServer
         SqlCommand cmd;
         SqlDataReader reader;
 
-        public String RegistrarUsuario(Usuario usuario, InformacionUsuario informacionUsuario)
+        public Boolean ValidarUsuario(Usuario usuario)
         {
+            try
+            {
+                conexion = new Conexion().Conectar();
+                cmd = new SqlCommand();
+                cmd.Connection = conexion;
+                cmd.CommandText = "SELECT email_usu,contr_usu FROM TB_USUARIO " +
+                                "WHERE email_usu=@email_usu and contr_usu=@contr_usu";
+                cmd.Parameters.AddWithValue("@email_usu", usuario.email_usu);
+                cmd.Parameters.AddWithValue("@contr_usu", usuario.contr_usu);
+                cmd.CommandType = CommandType.Text;
 
+                conexion.Open();
+                reader = cmd.ExecuteReader();
+
+                String email, contrasena;
+                email = Convert.ToString(reader["email_usu"]);
+                contrasena = Convert.ToString(reader["contr_usu"]);
+                if (usuario.email_usu.Equals(email) && usuario.contr_usu.Equals(contrasena))
+                {
+                    return true;
+                }
+                else return false;
+            }
+            catch(Exception e) {
+                Console.Write(e.Message);
+                return false;
+            }
+            finally
+            {
+                if (conexion.State == ConnectionState.Open)
+                {
+                    conexion.Close();
+                }
+                conexion.Dispose();
+                cmd.Dispose();
+            }               
+        }
+
+        public String RegistrarUsuario(Usuario usuario)
+        {
+     
             try
             {
                 conexion = new Conexion().Conectar();
