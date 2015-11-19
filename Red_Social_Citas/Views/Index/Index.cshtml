@@ -4,43 +4,80 @@
     ViewBag.Title = "Index";
 }
 
-<h2>LOGIN</h2>
-
-@using (Html.BeginForm("Login","Index")){
-    
-    @Html.LabelFor(model=>model.email_usu)  @Html.EditorFor(model=>model.email_usu)
-    <br/>
-
-    @Html.LabelFor(model => model.email_usu)  @Html.EditorFor(model => model.email_usu)
-    <br />
-    <input type="submit" value="Ingresar" />
-}        
-
-<br/>
-<br/>
-<br/>
-
-<h2>Registarse</h2>
-
-@using (Html.BeginForm("Registrar", "Index",FormMethod.Post))
-{
-
-    @Html.LabelFor(model => model.nom_usu)  @Html.EditorFor(model => model.nom_usu)
-    <br />
-    @Html.LabelFor(model => model.apePat_usu)  @Html.EditorFor(model => model.apePat_usu)
-    <br />
-    @Html.LabelFor(model => model.apeMat_usu)  @Html.EditorFor(model => model.apeMat_usu)
-    <br />
-    @Html.LabelFor(model => model.fecNac_usu)  @Html.EditorFor(model => model.fecNac_usu)
-    <br />
-    @Html.LabelFor(model => model.email_usu)  @Html.EditorFor(model => model.email_usu)
-    <br />
-    @Html.LabelFor(model => model.sexo_usu)  @Html.EditorFor(model => model.sexo_usu)
-    <br />
-    @Html.LabelFor(model => model.contr_usu)  @Html.EditorFor(model => model.contr_usu)
-    <br />
-    <input type="submit" value="Ingresar" />
-}    
-
-    
-
+<header>
+    <div class="container-fluid">
+        <div class="banner">
+            <div class=" col-md-5 col-md-offset-6">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        Registrate
+                    </div>
+                    <div class="panel-body">
+                        @using (@Html.BeginForm()){
+                        <table>
+                            <tr>
+                                <td>
+                                    @Html.LabelFor(model => model.nom_usu)
+                                </td>
+                                <td>
+                                    @Html.EditorFor(model => model.nom_usu)
+                                    @Html.ValidationMessageFor(model => model.nom_usu)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    @Html.LabelFor(model => model.apePat_usu)
+                                </td>
+                                <td>
+                                    @Html.EditorFor(model => model.apePat_usu)
+                                    @Html.ValidationMessageFor(model => model.apePat_usu)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    @Html.LabelFor(model => model.apeMat_usu)
+                                </td>
+                                <td>
+                                    @Html.EditorFor(model => model.apeMat_usu)
+                                    @Html.ValidationMessageFor(model => model.apeMat_usu)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    @Html.LabelFor(model => model.fecNac_usu)
+                                </td>
+                                <td>
+                                    @Html.EditorFor(model => model.fecNac_usu)
+                                    @Html.ValidationMessageFor(model => model.fecNac_usu)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    @Html.LabelFor(model => model.email_usu)
+                                </td>
+                                <td>
+                                    @Html.EditorFor(model => model.email_usu)
+                                    @Html.ValidationMessageFor(model => model.email_usu)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    @Html.LabelFor(model => model.sexo_usu)
+                                </td>
+                                <td>
+                                    @Html.EditorFor(model => model.sexo_usu)
+                                    @Html.ValidationMessageFor(model => model.sexo_usu)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td><input type="submit" value="Continuar"/></td>
+                            </tr>
+                        </table>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>

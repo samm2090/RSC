@@ -5,12 +5,39 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
+
 </head>
 <body>
+    <nav>
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <img src="~/Images/logo.png" height="60" width="160"/>
+                </div>
+
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a href="#">Inicio</a></li>
+                        <li><a href="#">Nosotros</a></li>
+                        <li><a href="#">Blogs</a></li> 
+                        <li><a href="#">Contacto</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-left">
+                        <li>@Html.ActionLink("Cerrar Sesion","Usuario","CerrarSesion")</li>
+                    </ul>
+                </div>
+
+            </div>
+        </nav>
+    </nav>
+
     @RenderBody()
 
-    @Scripts.Render("~/bundles/jquery")
+    <footer>
+        <center><p>2015 Todos los derechos reservados</p></center>
+    </footer>
+
+    @Scripts.Render("~/bundles/scripts")
     @RenderSection("scripts", required: false)
 </body>
 </html>

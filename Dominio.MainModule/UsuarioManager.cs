@@ -44,21 +44,5 @@ namespace Dominio.MainModule
             
         }
 
-        public String RegistrarUsuario(Usuario usuario)
-        {
-            try
-            {
-                usuarioDAL.RegistrarUsuario(usuario);
-
-    
-                return "Se regisro usuario";
-
-            }
-            catch
-            {
-                return "No se registro";
-            }
-
-        }
     }
 }
