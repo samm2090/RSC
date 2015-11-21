@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics;
 using Dominio.Core.Entities;
 using System.Data;
 using System.Data.SqlClient;
@@ -22,18 +23,14 @@ namespace Infraestructura.Data.SQLServer
                 cmd = new SqlCommand();
                 cmd.Connection = conexion;
 
-
                 cmd.CommandText = "SELECT * FROM tb_Estado_Cuenta WHERE cod_estCue=@cod_estCue";
                 cmd.Parameters.AddWithValue("@cod_estCue", estadoCuenta.cod_estCue);
-              
-
-
                 cmd.CommandType = CommandType.Text;
+
                 conexion.Open();
                 reader = cmd.ExecuteReader();
 
                 EstadoCuenta estado = new EstadoCuenta();
-
 
                 estado.cod_estCue = Convert.ToInt32(reader["cod_estCue"]);
                 estado.desc_estCue = Convert.ToString(reader["desc_estCue"]);
@@ -44,7 +41,7 @@ namespace Infraestructura.Data.SQLServer
                }
             catch(Exception e)
             {
-                Console.Write(e.Message);
+                Debug.WriteLine(e.ToString());
             }
 
             finally
@@ -58,9 +55,6 @@ namespace Infraestructura.Data.SQLServer
             }
             return null;
         }
-        
-
-
    
     }
 }

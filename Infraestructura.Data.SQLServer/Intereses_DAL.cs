@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics;
 using Dominio.Core.Entities;
 using System.Data;
 using System.Data.SqlClient;
@@ -14,7 +15,6 @@ namespace Infraestructura.Data.SQLServer
     {
         SqlConnection conexion;
         SqlCommand cmd;
-        SqlDataReader reader;
 
         public String RegistrarIntereses(Usuario usuario, Intereses intereses)
         {
@@ -33,7 +33,6 @@ namespace Infraestructura.Data.SQLServer
                 cmd.Parameters.AddWithValue("@cod_ing", intereses.cod_ing);
                 cmd.Parameters.AddWithValue("@hijos_interes", intereses.hijos_interes);
 
-
                 cmd.CommandType = CommandType.Text;
                 conexion.Open();
                 cmd.ExecuteNonQuery();
@@ -43,15 +42,16 @@ namespace Infraestructura.Data.SQLServer
 
             catch (Exception e)
             {
-                return e.Message;
+                Debug.WriteLine(e.ToString());
+                return "Error en la BD";
             }
             finally
             {
                 if (conexion.State == ConnectionState.Open)
                     conexion.Close();
 
-                conexion = null;
-                cmd = null;
+                conexion.Dispose();
+                cmd.Dispose();
             }
         }
     }

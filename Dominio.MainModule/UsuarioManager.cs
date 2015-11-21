@@ -21,6 +21,14 @@ namespace Dominio.MainModule
             return usuarioDAL.ValidarUsuario(usuario);
         }
 
+        public List<Talla> ListarTallas(){
+            Talla_DAL dal = new Talla_DAL();
+
+            return dal.ListarTallas();
+        }
+
+
+
         public String RegistrarUsuario(Usuario usuario,InformacionUsuario infoUsu,Intereses intereses,List<Cualidad> cuaUsu,
                                        List<Cualidad> cuaInt)
         {
@@ -44,5 +52,6 @@ namespace Dominio.MainModule
             
         }
 
+        
     }
 }

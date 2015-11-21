@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics;
 using Dominio.Core.Entities;
 using System.Data;
 using System.Data.SqlClient;
@@ -11,7 +12,7 @@ namespace Infraestructura.Data.SQLServer
 {
     public class Contextura_DAL
     {  
-        Conexion conexion;
+        SqlConnection conexion;
         SqlCommand cmd;
         SqlDataReader reader;
   
@@ -21,11 +22,13 @@ namespace Infraestructura.Data.SQLServer
 
             try
             {
-                conexion = new Conexion();
-                cmd = new SqlCommand("SELECT * FROM TB_CONTEXTURA",conexion.Conectar());
-                cmd.CommandType=CommandType.StoredProcedure;
+                conexion = new Conexion().Conectar() ;
+                cmd = new SqlCommand();
+                cmd.Connection = conexion;
+                cmd.CommandText="SELECT * FROM TB_CONTEXTURA";
+                cmd.CommandType=CommandType.Text;
 
-                conexion.Conectar().Open();
+                conexion.Open();
                 reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
@@ -40,19 +43,18 @@ namespace Infraestructura.Data.SQLServer
             }
             catch(Exception e)
             {
-                Console.Write(e.Message);
+                Debug.WriteLine(e.ToString());
             }
             finally
             {
-                if (conexion.Conectar().State == ConnectionState.Open)
+                if (conexion.State == ConnectionState.Open)
                 {
-                    conexion.Conectar().Close();
+                    conexion.Close();
                 }
+                conexion.Dispose();
+                cmd.Dispose();
             }
-
-            conexion.Conectar().Dispose();
-            cmd.Dispose();
-
+          
             return contexturas;
         }
     

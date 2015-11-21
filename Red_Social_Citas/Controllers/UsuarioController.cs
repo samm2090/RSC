@@ -10,24 +10,31 @@ namespace Red_Social_Citas.Controllers
 {
     public class UsuarioController : Controller
     {
-        public ActionResult Index()
-        {
-            return View();
-        }
-
+    
         [HttpPost]
         public ActionResult Registrar(Usuario usuario)
         {
+            if (usuario.nom_usu == null || usuario.apePat_usu == null || usuario.apeMat_usu==null  ||
+               usuario.sexo_usu== null|| usuario.fecNac_usu== null  || usuario.email_usu== null )
+            {
+                return RedirectToAction("Index", "Index");
+            }
+            else
+            {
+                UsuarioManager m = new UsuarioManager();
 
-            UsuarioManager usuManager = new UsuarioManager();
+                Session["usuario"] = usuario;
+                ViewBag.tallas = new SelectList(m.ListarTallas(), "desc_talla", "cod_talla");
+                
+                return View();
+            }
 
-            return View();
         }
 
         [HttpPost]
         public ActionResult Login(Usuario usuario)
         {
-            return RedirectToAction("Perfil", "Perfil");
+            return View(); 
         }
     }
 }

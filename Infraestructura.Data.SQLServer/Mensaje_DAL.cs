@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics;
 using Dominio.Core.Entities;
 using System.Data;
 using System.Data.SqlClient;
@@ -38,15 +39,16 @@ namespace Infraestructura.Data.SQLServer
             }
             catch(Exception e)
             {
-                return e.Message;
+                Debug.WriteLine(e.ToString());
+                return "Error en la BD";
             }
             finally
             {
                 if (conexion.State == ConnectionState.Open)
                     conexion.Close();
 
-                conexion = null;
-                cmd = null;
+                conexion.Dispose();
+                cmd.Dispose();
             }
 
         }
@@ -75,15 +77,16 @@ namespace Infraestructura.Data.SQLServer
             }
             catch (Exception e)
             {
-                return e.Message;
+                Debug.WriteLine(e.ToString());
+                return "Error en la BD";
             }
             finally
             {
                 if (conexion.State == ConnectionState.Open)
                     conexion.Close();
 
-                conexion = null;
-                cmd = null;
+                conexion.Dispose();
+                cmd.Dispose();
             }
 
         }

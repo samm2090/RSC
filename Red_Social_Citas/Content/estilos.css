@@ -1,9 +1,17 @@
-﻿.banner{
+﻿.hero{
     background-image:url('../Images/banner.png');
     background-size:cover;
     background-repeat:no-repeat;
     height:600px;
     width:100%;
-    padding-top:60px;
+    /*padding-top:60px;*/
+}
+
+.registrate{
+    margin-top:50px;
+}
+
+.renderBody{
+    margin-top:60px;
 }
 
