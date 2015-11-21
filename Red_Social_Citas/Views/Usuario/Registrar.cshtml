@@ -1,7 +1,49 @@
-﻿@{
+﻿@model Dominio.Core.Entities.Rasgo
+
+@{
     ViewBag.Title = "Registro";
 }
 
-<h2>Informacion personal</h2>
+<div class="row">
+    <div class="col-md-8">
+        <h2>Informacion personal</h2>
+        <p>Esta pequeña encuesta nos ayudara a encontrarte perseonas compatibles contigo</p>
+    </div>
 
-<div style="padding:50px"> @Html.DropDownList("cod_talla", (SelectList)@ViewBag.tallas)</div>
+    <div class="col-md-4">
+        <div class="progress" style="margin:40px;">
+            <div class="progress-bar" role="progressbar" aria-valuenow="12.5"
+                 aria-valuemin="0" aria-valuemax="100" style="width:12.5%;">
+                12.5%
+            </div>
+        </div>
+    </div>
+</div>
+@using (@Html.BeginForm("Registrar2", "Usuario", FormMethod.Post)){
+<div class="row">
+    <div class="pregunta">
+        <h3>¿Cuál es tu talla?</h3>
+        <div class="opcion">
+            @Html.DropDownList("cod_talla", (SelectList)@ViewBag.tallas)
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="pregunta">
+        <h3>¿Con qué rasgo cultural te identificas?</h3>
+        <div class="opcion">
+            @foreach (var rasgo in ViewBag.rasgos as List<Dominio.Core.Entities.Rasgo>)
+            { 
+            @Html.RadioButtonFor(model=>model.cod_rasgo,rasgo.cod_rasgo)
+            @rasgo.desc_rasgo
+            <br />
+            }
+        </div>
+    </div>
+    <div class="col-md-offset-8">
+        <input type="submit" value="Siguiente" />
+    </div>
+</div>
+}
+

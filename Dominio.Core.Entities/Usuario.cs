@@ -32,6 +32,7 @@ namespace Dominio.Core.Entities
         public DateTime fecReg_usu { get; set; }
 
         [DisplayName("Fecha de nacimiento")]
+       // [RegularExpression(@"^[0-9]{4}[-/]$",ErrorMessage="Formato de fecha no valido")]
         [Required(ErrorMessage = "Fecha nacimiento obligatorio")]
         public DateTime fecNac_usu { get; set; }
 

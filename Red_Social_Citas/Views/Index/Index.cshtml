@@ -13,67 +13,68 @@
                         Registrate
                     </div>
                     <div class="panel-body">
-                        @using (@Html.BeginForm("Registrar","Usuario",FormMethod.Post)){
-                        <table>
-                            <tr>
-                                <td>
-                                    @Html.LabelFor(model => model.nom_usu):
-                                </td>
-                                <td>
-                                    @Html.EditorFor(model => model.nom_usu)
-                                    @Html.ValidationMessageFor(model => model.nom_usu,"")
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    @Html.LabelFor(model => model.apePat_usu):
-                                </td>
-                                <td>
-                                    @Html.EditorFor(model => model.apePat_usu)
-                                    @Html.ValidationMessageFor(model => model.apePat_usu,"")
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    @Html.LabelFor(model => model.apeMat_usu):
-                                </td>
-                                <td>
-                                    @Html.EditorFor(model => model.apeMat_usu)
-                                    @Html.ValidationMessageFor(model => model.apeMat_usu,"")
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    @Html.LabelFor(model => model.fecNac_usu):
-                                </td>
-                                <td>
-                                    @Html.EditorFor(model => model.fecNac_usu)
-                                    @Html.ValidationMessageFor(model => model.fecNac_usu,"")
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    @Html.LabelFor(model => model.email_usu):
-                                </td>
-                                <td>
-                                    @Html.EditorFor(model => model.email_usu)
-                                    @Html.ValidationMessageFor(model => model.email_usu,"")
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    @Html.LabelFor(model => model.sexo_usu):
-                                </td>
-                                <td>
-                                    @Html.EditorFor(model => model.sexo_usu)
-                                    @Html.ValidationMessageFor(model => model.sexo_usu,"")
-                                </td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td><input type="submit" value="Continuar"/></td>
-                            </tr>
-                        </table>
+                        @using (@Html.BeginForm("Registrar", "Usuario", FormMethod.Post))
+                        {
+                            <table>
+                                <tr>
+                                    <td>
+                                        @Html.LabelFor(model => model.nom_usu):
+                                    </td>
+                                    <td>
+                                        @Html.TextBoxFor(model => model.nom_usu, new{placeholder = "Javier" } )
+                                        @Html.ValidationMessageFor(model => model.nom_usu)
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        @Html.LabelFor(model => model.apePat_usu):
+                                    </td>
+                                    <td>
+                                        @Html.TextBoxFor(model => model.apePat_usu, new { placeholder = "Copaira" })
+                                        @Html.ValidationMessageFor(model => model.apePat_usu)
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        @Html.LabelFor(model => model.apeMat_usu):
+                                    </td>
+                                    <td>
+                                        @Html.TextBoxFor(model => model.apeMat_usu, new { placeholder = "Beslanga" })
+                                        @Html.ValidationMessageFor(model => model.apeMat_usu)
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        @Html.LabelFor(model => model.fecNac_usu):
+                                    </td>
+                                    <td>
+                                        @Html.TextBoxFor(model => model.fecNac_usu, new { @class = "datePicker" , placeholder = "yyyy/mm/dd" })
+                                        @Html.ValidationMessageFor(model => model.fecNac_usu)
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        @Html.LabelFor(model => model.email_usu):
+                                    </td>
+                                    <td>
+                                        @Html.TextBoxFor(model => model.email_usu, new { placeholder = "javier@gmail.com"})
+                                        @Html.ValidationMessageFor(model => model.email_usu)
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        @Html.LabelFor(model => model.sexo_usu):
+                                    </td>
+                                    <td>
+                                        M:@Html.RadioButtonFor(model => model.sexo_usu, "M", new { Checked = "checked" })
+                                        F:@Html.RadioButtonFor(model => model.sexo_usu,"F")
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td><input type="submit" value="Continuar" /></td>
+                                </tr>
+                            </table>
                         }
                     </div>
                 </div>
@@ -81,3 +82,4 @@
         </div>
     </div>
 </header>
+

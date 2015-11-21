@@ -16,7 +16,7 @@ namespace Red_Social_Citas
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Index", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "Usuario", action = "Registrar", id = UrlParameter.Optional }
             );
         }
     }

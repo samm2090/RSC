@@ -15,18 +15,13 @@ namespace Dominio.MainModule
         Intereses_DAL interesesDAL = new Intereses_DAL();
         CualidadesUsuario_DAL cuaUsuDAL = new CualidadesUsuario_DAL();
         CualidadesInteres_DAL cuaIntDAL = new CualidadesInteres_DAL();
+        Talla_DAL tallaDAL = new Talla_DAL();
+        Rasgo_DAL rasgoDAL = new Rasgo_DAL();
 
         public Boolean ValidarUsuario(Usuario usuario)
         {
             return usuarioDAL.ValidarUsuario(usuario);
         }
-
-        public List<Talla> ListarTallas(){
-            Talla_DAL dal = new Talla_DAL();
-
-            return dal.ListarTallas();
-        }
-
 
 
         public String RegistrarUsuario(Usuario usuario,InformacionUsuario infoUsu,Intereses intereses,List<Cualidad> cuaUsu,
@@ -52,6 +47,14 @@ namespace Dominio.MainModule
             
         }
 
-        
+        public IEnumerable<Talla> ListarTallas()
+        {
+            return tallaDAL.ListarTallas();
+        }
+
+        public IEnumerable<Rasgo> ListarRasgos()
+        {
+            return rasgoDAL.ListarRasgos();
+        }
     }
 }
