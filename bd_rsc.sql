@@ -127,7 +127,7 @@ Create Table tb_Intereses(
 	cod_rasgo int not null,
 	cod_contex int not null,
 	cod_ing int not null,
-	hijos_interes char(2) not null,
+	hijos_interes char(2) not null check (hijos_interes in('Si','No')),
 
 	Constraint pk_cod_usu_inter primary key (cod_usu),
 	Constraint fk_cod_usu_inter foreign key (cod_usu) references tb_Usuario(cod_usu),

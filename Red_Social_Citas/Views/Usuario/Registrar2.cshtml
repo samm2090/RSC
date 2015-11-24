@@ -1,5 +1,57 @@
 ﻿@{
-    ViewBag.Title = "Registrar2";
+    ViewBag.Title = "Registro2";
 }
 
-<h2>Registrar2</h2>
+<div class="row">
+    <div class="col-md-8">
+        <h2>Informacion personal</h2>
+        <p>Esta pequeña encuesta nos ayudara a encontrarte personas compatibles contigo</p>
+    </div>
+
+    <div class="col-md-4">
+        <div class="progress" style="margin:40px;">
+            <div class="progress-bar" role="progressbar" aria-valuenow="25"
+                 aria-valuemin="0" aria-valuemax="100" style="width:25%;">
+                25%
+            </div>
+        </div>
+    </div>
+</div>
+@using (@Html.BeginForm("Registrar3", "Usuario", FormMethod.Post))
+{
+    <div class="row">
+        <div class="pregunta">
+            <h3>¿Cuál es tu contextura física?</h3>
+            <div class="opcion">
+                @Html.DropDownList("cod_contex", (SelectList)@ViewBag.contexturas)
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="pregunta">
+            <h3>¿Cuál es tu contextura física?</h3>
+            <div class="opcion">
+                @Html.DropDownList("cod_estCiv", (SelectList)@ViewBag.estCivs)
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+      @*  <div class="pregunta">
+        <h3>¿Cuál es tu estado civil?</h3>
+        <div class="opcion">
+            @foreach (var rasgo in ViewBag.rasgos as List<Dominio.Core.Entities.Rasgo>)
+            {
+                @Html.RadioButtonFor(model => model.cod_rasgo, rasgo.cod_rasgo)
+                @rasgo.desc_rasgo
+                <br />
+            }
+        </div>
+    </div>*@
+        <div class="col-md-offset-8">
+            <input type="submit" value="Siguiente" />
+        </div>
+    </div>
+}
+

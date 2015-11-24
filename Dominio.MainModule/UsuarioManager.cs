@@ -17,6 +17,9 @@ namespace Dominio.MainModule
         CualidadesInteres_DAL cuaIntDAL = new CualidadesInteres_DAL();
         Talla_DAL tallaDAL = new Talla_DAL();
         Rasgo_DAL rasgoDAL = new Rasgo_DAL();
+        Contextura_DAL contexturaDAL = new Contextura_DAL();
+        EstadoCivil_DAL estCivDAL = new EstadoCivil_DAL();
+        Cualidad_DAL cualidadDAL = new Cualidad_DAL();
 
         public Boolean ValidarUsuario(Usuario usuario)
         {
@@ -56,5 +59,39 @@ namespace Dominio.MainModule
         {
             return rasgoDAL.ListarRasgos();
         }
+
+        public IEnumerable<Contextura> listarContexturas()
+        {
+            return contexturaDAL.ListarContexturas();
+        }
+
+        public IEnumerable<EstadoCivil> listarEstadosCiviles()
+        {
+            return estCivDAL.ListarEstadosCiviles();
+        }
+
+        public IEnumerable<Cualidad> listarCualidades()
+        {
+            return cualidadDAL.ListarCualidades();
+        }
+
+        public IEnumerable<Actividad> listarActividades()
+        {
+            Actividad_DAL actividadDAL= new Actividad_DAL();
+            return actividadDAL.ListarActividades();
+        }
+
+        public IEnumerable<Ingresos> listarIngresos()
+        {
+            Ingresos_DAL ingresosDAL = new Ingresos_DAL();
+            return ingresosDAL.ListarIngresos();
+        }
+
+        public IEnumerable<TallaRango> listarTallaRangos()
+        {
+            TallaRango_DAL tallaRangoDAL = new TallaRango_DAL();
+            return tallaRangoDAL.ListarTallasRangos();
+        }
+
     }
 }

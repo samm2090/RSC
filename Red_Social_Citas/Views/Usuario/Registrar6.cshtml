@@ -1,0 +1,49 @@
+﻿@{
+    ViewBag.Title = "Registro6";
+}
+
+<div class="row">
+    <div class="col-md-8">
+        <h2>Tus intereses</h2>
+        <p>Esta pequeña encuesta nos ayudara a encontrarte personas compatibles contigo</p>
+    </div>
+
+    <div class="col-md-4">
+        <div class="progress" style="margin:40px;">
+            <div class="progress-bar" role="progressbar" aria-valuenow="75"
+                 aria-valuemin="0" aria-valuemax="100" style="width:75%;">
+                75%
+            </div>
+        </div>
+    </div>
+</div>
+@using (@Html.BeginForm("Registrar7", "Usuario", FormMethod.Post))
+{
+
+    <div class="row">
+        <div class="pregunta">
+            <h3>¿Qué contextura física buscas en tu pareja?</h3>
+            <div class="opcion">
+                @Html.DropDownList("cod_contex", (SelectList)@ViewBag.contexturas)
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="pregunta">
+            <h3>
+                ¿Saldrías con alguien con hijos?
+            </h3>
+            <div class="opcion">
+                <input type="radio" name="hijos_interes" value="Si" />Si
+                <br />
+                <input type="radio" name="hijos_interes" value="No" />No
+            </div>
+        </div>
+
+        <div class="col-md-offset-8">
+            <input type="submit" value="Siguiente" />
+        </div>
+    </div>
+}
+
