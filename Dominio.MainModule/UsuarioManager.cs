@@ -20,6 +20,7 @@ namespace Dominio.MainModule
         Contextura_DAL contexturaDAL = new Contextura_DAL();
         EstadoCivil_DAL estCivDAL = new EstadoCivil_DAL();
         Cualidad_DAL cualidadDAL = new Cualidad_DAL();
+        Foto_DAL fotoDAL = new Foto_DAL();
 
         public Boolean ValidarUsuario(Usuario usuario)
         {
@@ -35,6 +36,11 @@ namespace Dominio.MainModule
         public String RegistrarUsuario(Usuario usuario)
         {
             return usuarioDAL.RegistrarUsuario(usuario);     
+        }
+
+        public String InsertarFoto(Foto foto)
+        {
+            return fotoDAL.InsertarFoto(foto);
         }
 
         public IEnumerable<Talla> ListarTallas()
@@ -80,5 +86,15 @@ namespace Dominio.MainModule
             return tallaRangoDAL.ListarTallasRangos();
         }
 
+
+        public String RegistrarInfoUsu(InformacionUsuario infoUsu)
+        {
+            return infoUsuDAL.RegistrarInformacionUsuario(infoUsu);
+        }
+
+        public String  RegistrarCuaUsu(List<CualidadesUsuario> cuaUsu)
+        {
+            return cuaUsuDAL.IngresarCualidadesUsuarios(cuaUsu);
+        }
     }
 }

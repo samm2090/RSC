@@ -164,14 +164,12 @@ Create Table tb_Mensaje(
 	cod_mens int not null identity(1,1),
     cod_usu1 int not null,
     cod_usu2 int not null,
-    cod_usu3 int not null,
     mensaje text not null,
     fecha_mens datetime default getDate(),
 
     Constraint pK_cod_mens primary key (cod_mens),
 	Constraint fk_cod_usu1_mens foreign key (cod_usu1) references tb_usuario(cod_usu),
-	Constraint fk_cod_usu2_mens foreign key (cod_usu2) references tb_usuario(cod_usu),
-	Constraint fk_cod_usu3_mens foreign key (cod_usu3) references tb_usuario(cod_usu)
+	Constraint fk_cod_usu2_mens foreign key (cod_usu2) references tb_usuario(cod_usu)
 )
 go
 
@@ -310,9 +308,9 @@ INSERT INTO tb_Usuario (nom_usu,apePat_usu,apeMat_usu,fecNac_usu,email_usu,contr
 VALUES('Carlos','Perez','Zapata','1990-05-23','carlos123@gmail.com','12345','M'),
       ('Miguel','Torres','Jauregui','1990-02-12','miguel123@gmail.com','12345','M'),
       ('Pablo','Cornelio','Vilchez','1984-12-12','pablo123@gmail.com','12345','M'),
-      ('Susana','Calderon','Del Rio','1977-12-23','susana23@gmail.com','12345','M'),
-      ('Maria','Del Solar','Aguila','1988-07-02','maria2@gmail.com','12345','M'),
-	  ('Miriam','Zavala','Mier','1994-11-04','miriam22@gmail.com','12345','M')
+      ('Susana','Calderon','Del Rio','1977-12-23','susana23@gmail.com','12345','F'),
+      ('Maria','Del Solar','Aguila','1988-07-02','maria2@gmail.com','12345','F'),
+	  ('Miriam','Zavala','Mier','1994-11-04','miriam22@gmail.com','12345','F')
 GO
 
 INSERT INTO tb_Informacion_Usuario(cod_usu,cod_talla,cod_estCiv,cod_rasgo,cod_contex,cod_ing,cod_act,hijos_usu)
@@ -324,6 +322,69 @@ VALUES(1,5,2,3,2,3,4,2),
 	  (6,5,2,3,2,3,4,2)
 GO
 
-SELECT * FROM tb_Usuario
+INSERT INTO tb_Intereses(cod_usu,cod_talla_ran,cod_rasgo,cod_contex,cod_ing,hijos_interes,ing_interes)
+Values	(1,1,3,2,3,'SI','NO'),
+		(2,2,2,3,2,'NO','SI'),
+		(3,3,4,2,1,'SI','SI'),
+		(4,4,3,2,1,'SI','NO'),
+		(5,3,4,1,2,'NO','NO'),
+		(6,7,2,3,3,'SI','SI')
+		GO
+INSERT INTO tb_Cualidades_Usuario(cod_usu,cod_cua)
+VALUES		(1,2),
+			(1,3),
+			(1,4),
+			(2,2),
+			(3,3),
+			(4,1),
+			(5,6),
+			(6,4)
 GO
 
+INSERT INTO tb_Cualidades_Interes(cod_usu,cod_cua)
+VALUES		(1,3),
+			(2,2),
+			(3,3),
+			(4,1),
+			(5,6),
+			(6,4)
+GO
+
+INSERT INTO tb_Mensaje(cod_usu1,cod_usu2,mensaje)
+VALUES		(1,2,'Hola'),
+			(2,1,'¿Como estás?'),
+			(1,2,'¿Donde vives?'),
+			(2,1,'Chau'),
+			(3,1,'Holaa'),
+			(1,3,'¿Tienes hijos?'),
+			(4,1,'Hi')
+go
+
+select * from tb_Mensaje 
+where cod_usu1=1 and cod_usu2=2 or cod_usu1=2 and cod_usu2=1
+order by fecha_mens
+go
+
+
+select * from tb_Mensaje 
+where cod_usu1=1 and cod_usu2=3 or cod_usu1=3 and cod_usu2=1
+order by fecha_mens
+go
+
+Insert into tb_Foto(cod_usu,foto) select 1,bulkcolumn 
+from openrowset (bulk 'F:\usuarios\usuario1.jpg',single_blob) 
+as BLOB
+go
+
+Insert into tb_Foto(cod_usu,foto) select 4,bulkcolumn 
+from openrowset (bulk 'F:\usuarios\usuario4.jpg',single_blob) 
+as BLOB
+go
+
+SELECT * FROM tb_Foto
+GO
+
+SELECT * FROM tb_Usuario
+GO
+SELECT * FROM tb_Informacion_Usuario
+GO

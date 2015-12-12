@@ -19,5 +19,7 @@ namespace Dominio.Core.Entities
 
         [DisplayName("Foto")]
         public Byte[] foto { get; set; }
+
+        public String ruta { get; set; }
     }
 }

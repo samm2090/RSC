@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using Dominio.Core.Entities;
 using Dominio.MainModule;
+using System.Configuration;
 
 namespace Red_Social_Citas.Controllers
 {
@@ -97,8 +98,8 @@ namespace Red_Social_Citas.Controllers
 
                     cuaUsus.Add(cuaUsu);
                 }
-                Session["cuaUsu"] = cuaUsus;
 
+                usuarioManager.RegistrarCuaUsu(cuaUsus);
                 ViewBag.actividades = usuarioManager.listarActividades();
                 ViewBag.ingresos = new SelectList(usuarioManager.listarIngresos(), "cod_ing", "desc_ing");
             }
@@ -117,6 +118,8 @@ namespace Red_Social_Citas.Controllers
                 infoUsu.cod_act = cod_act;
                 infoUsu.cod_ing = cod_ing;
                 Session["infoUsu"] = infoUsu;
+
+                usuarioManager.RegistrarInfoUsu(infoUsu);
 
                 ViewBag.tallaRangos = new SelectList(usuarioManager.listarTallaRangos(), "cod_talla_ran", "desc_talla_ran");
                 ViewBag.rasgos = usuarioManager.ListarRasgos();
@@ -209,8 +212,15 @@ namespace Red_Social_Citas.Controllers
 
 
         [HttpPost]
-        public ActionResult Registrar9()
+        public ActionResult Perfil()
         {
+            string ruta1 = Server.MapPath(ConfigurationManager.AppSettings["RutaArchivos"]) +
+                                    System.IO.Path.GetFileName(Request.Files["foto1"].FileName);
+            string ruta2 = Server.MapPath(ConfigurationManager.AppSettings["RutaArchivos"]) +
+                                    System.IO.Path.GetFileName(Request.Files["foto2"].FileName);
+            string ruta3 = Server.MapPath(ConfigurationManager.AppSettings["RutaArchivos"]) +
+                                    System.IO.Path.GetFileName(Request.Files["foto3"].FileName);
+            
             return View();
         } 
 

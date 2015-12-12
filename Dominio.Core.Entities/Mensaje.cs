@@ -20,9 +20,6 @@ namespace Dominio.Core.Entities
         [DisplayName("Codigo del usuario")]
         public int cod_usu2 { get; set; }
 
-        [DisplayName("Codigo del usuario")]
-        public int cod_usu3 { get; set; }
-
         [DisplayName(" Mensaje")]
         [Required(ErrorMessage = "Mensaje ingresar mensaje")]
         public String mensaje { get; set; }

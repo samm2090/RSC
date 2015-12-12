@@ -17,7 +17,7 @@
     </div>
 </div>
 
-@using (@Html.BeginForm("Registrar9", "Usuario", FormMethod.Post))
+@using (@Html.BeginForm("Perfil", "Usuario", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     <div class="row">
         <div class="pregunta">
@@ -25,7 +25,13 @@
                 Subir 3 fotos:
             </h3>
             <div class="opcion">
-                <input type="password" name="contr_usu" />
+                <input type="file" name="foto1" id="fileToUpload"/>
+            </div>
+            <div class="opcion">
+                <input type="file" name="foto2" id="fileToUpload" />
+            </div>
+            <div class="opcion">
+                <input type="file" name="foto3" id="fileToUpload" />
             </div>
         </div>
 
@@ -34,4 +40,5 @@
         </div>
     </div>
 }
+
 
