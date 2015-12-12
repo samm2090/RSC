@@ -25,11 +25,12 @@
         <div class="pregunta">
             <h3>¿Tienes hijos?</h3>
             <div class="opcion">
-                <select name="hijos">
+                <select name="hijos_usu">
                     <option value="0">0</option>
-                    <option value="2">1</option>
-                    <option value="3">2</option>
-                    <option value="4">3</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
                     <option value="5">5 a más</option>
                 </select>
             </div>
@@ -42,7 +43,8 @@
             <div class="opcion">
                 @foreach (var cualidad in ViewBag.cualidades as List<Dominio.Core.Entities.Cualidad>)
                 {
-                    <input type="checkbox" name="cod_cua" value=@cualidad.cod_cua>@cualidad.desc_cua
+                    <input type="checkbox" name="cod_cua" value="@cualidad.cod_cua">@cualidad.desc_cua
+
                     <br />
                 }
             </div>

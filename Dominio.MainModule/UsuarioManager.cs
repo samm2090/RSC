@@ -26,28 +26,15 @@ namespace Dominio.MainModule
             return usuarioDAL.ValidarUsuario(usuario);
         }
 
-
-        public String RegistrarUsuario(Usuario usuario,InformacionUsuario infoUsu,Intereses intereses,List<Cualidad> cuaUsu,
-                                       List<Cualidad> cuaInt)
+        public Usuario BuscarUsuario(Usuario usuario)
         {
-            try{
-            usuarioDAL.RegistrarUsuario(usuario);
+            return usuarioDAL.BuscarUsuario(usuario);
+        }
 
-            infoUsuDAL.RegistrarInformacionUsuario(usuario,infoUsu);
 
-            interesesDAL.RegistrarIntereses(usuario, intereses);
-
-            cuaUsuDAL.IngresarCualidadesUsuarios(usuario, cuaUsu);
-
-            cuaIntDAL.IngresarCualidadInteres(usuario, cuaInt);
-
-            return "Se regisro usuario";
-
-            }
-            catch{
-            return "No se registro";
-            }
-            
+        public String RegistrarUsuario(Usuario usuario)
+        {
+            return usuarioDAL.RegistrarUsuario(usuario);     
         }
 
         public IEnumerable<Talla> ListarTallas()

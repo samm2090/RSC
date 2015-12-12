@@ -30,7 +30,7 @@
 
     <div class="row">
         <div class="pregunta">
-            <h3>¿Cuál es tu contextura física?</h3>
+            <h3>¿Cuál es tu estado civil?</h3>
             <div class="opcion">
                 @Html.DropDownList("cod_estCiv", (SelectList)@ViewBag.estCivs)
             </div>
@@ -38,17 +38,7 @@
     </div>
 
     <div class="row">
-      @*  <div class="pregunta">
-        <h3>¿Cuál es tu estado civil?</h3>
-        <div class="opcion">
-            @foreach (var rasgo in ViewBag.rasgos as List<Dominio.Core.Entities.Rasgo>)
-            {
-                @Html.RadioButtonFor(model => model.cod_rasgo, rasgo.cod_rasgo)
-                @rasgo.desc_rasgo
-                <br />
-            }
-        </div>
-    </div>*@
+
         <div class="col-md-offset-8">
             <input type="submit" value="Siguiente" />
         </div>

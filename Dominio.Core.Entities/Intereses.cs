@@ -27,6 +27,8 @@ namespace Dominio.Core.Entities
 
         [DisplayName("Interes hijos")]
         public String hijos_interes { get; set; }
+
+        public String ing_interes { get; set; }
                        
     }
 }

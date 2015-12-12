@@ -18,5 +18,6 @@ namespace Dominio.Core.Entities
         [DisplayName("Descripcion de la talla")]
         public String desc_talla { get; set; }
 
+        public int cod_talla_ran { get; set; }
     }
 }

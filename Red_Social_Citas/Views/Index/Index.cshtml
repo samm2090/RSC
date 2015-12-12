@@ -21,7 +21,7 @@
                                         @Html.LabelFor(model => model.nom_usu):
                                     </td>
                                     <td>
-                                        @Html.TextBoxFor(model => model.nom_usu, new{placeholder = "Javier" } )
+                                        @Html.TextBoxFor(model => model.nom_usu, new{placeholder = "Carlos" } )
                                         @Html.ValidationMessageFor(model => model.nom_usu)
                                     </td>
                                 </tr>
@@ -30,7 +30,7 @@
                                         @Html.LabelFor(model => model.apePat_usu):
                                     </td>
                                     <td>
-                                        @Html.TextBoxFor(model => model.apePat_usu, new { placeholder = "Copaira" })
+                                        @Html.TextBoxFor(model => model.apePat_usu, new { placeholder = "Perez" })
                                         @Html.ValidationMessageFor(model => model.apePat_usu)
                                     </td>
                                 </tr>
@@ -39,7 +39,7 @@
                                         @Html.LabelFor(model => model.apeMat_usu):
                                     </td>
                                     <td>
-                                        @Html.TextBoxFor(model => model.apeMat_usu, new { placeholder = "Beslanga" })
+                                        @Html.TextBoxFor(model => model.apeMat_usu, new { placeholder = "Diaz" })
                                         @Html.ValidationMessageFor(model => model.apeMat_usu)
                                     </td>
                                 </tr>
@@ -57,7 +57,7 @@
                                         @Html.LabelFor(model => model.email_usu):
                                     </td>
                                     <td>
-                                        @Html.TextBoxFor(model => model.email_usu, new { placeholder = "javier@gmail.com"})
+                                        @Html.TextBoxFor(model => model.email_usu, new { placeholder = "carlos123@gmail.com"})
                                         @Html.ValidationMessageFor(model => model.email_usu)
                                     </td>
                                 </tr>
@@ -68,6 +68,15 @@
                                     <td>
                                         M:@Html.RadioButtonFor(model => model.sexo_usu, "M", new { Checked = "checked" })
                                         F:@Html.RadioButtonFor(model => model.sexo_usu,"F")
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        @Html.LabelFor(model => model.contr_usu):
+                                    </td>
+                                    <td>
+                                        @Html.PasswordFor(model => model.contr_usu, new { placeholder = "•••••••" })
+                                        @Html.ValidationMessageFor(model => model.contr_usu)
                                     </td>
                                 </tr>
                                 <tr>

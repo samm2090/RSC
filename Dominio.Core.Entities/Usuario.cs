@@ -29,6 +29,7 @@ namespace Dominio.Core.Entities
         public String apeMat_usu  { get; set; }
 
         [DisplayName("Fecha de registro")]
+        [DataType(DataType.Date),DisplayFormat(DataFormatString="{0:yyyy/MM/dd}",ApplyFormatInEditMode=true)]
         public DateTime fecReg_usu { get; set; }
 
         [DisplayName("Fecha de nacimiento")]

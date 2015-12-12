@@ -16,6 +16,54 @@ namespace Infraestructura.Data.SQLServer
         SqlCommand cmd;
         SqlDataReader reader;
 
+        public Usuario BuscarUsuario(Usuario usuario)
+        {
+            Usuario usu = new Usuario();
+            try
+            {
+                conexion = new Conexion().Conectar();
+                cmd = new SqlCommand();
+                cmd.Connection = conexion;
+                cmd.CommandText = "SELECT * FROM TB_USUARIO " +
+                                    "WHERE email_usu=@email_usu and contr_usu=@contr_usu";
+                cmd.Parameters.AddWithValue("@email_usu", usuario.email_usu);
+                cmd.Parameters.AddWithValue("@contr_usu", usuario.contr_usu);
+                cmd.CommandType = CommandType.Text;
+
+                conexion.Open();
+                reader = cmd.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    usu.cod_usu = Convert.ToInt32(reader["cod_usu"]);
+                    usu.nom_usu = Convert.ToString(reader["nom_usu"]);
+                    usu.apePat_usu = Convert.ToString(reader["apePat_usu"]);
+                    usu.apeMat_usu = Convert.ToString(reader["apeMat_usu"]);
+                    usu.fecReg_usu = Convert.ToDateTime(reader["fecReg_usu"]);
+                    usu.fecNac_usu = Convert.ToDateTime(reader["fecNac_usu"]);
+                    usu.email_usu = Convert.ToString(reader["email_usu"]);
+                    usu.contr_usu = Convert.ToString(reader["contr_usu"]);
+                    usu.sexo_usu = Convert.ToString(reader["sexo_usu"]);
+                    usu.cod_estCue = Convert.ToInt32(reader["cod_estCue"]);
+                }
+                reader.Close();
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.ToString());
+            }
+            finally
+            {
+                if (conexion.State == ConnectionState.Open)
+                {
+                    conexion.Close();
+                }
+                conexion.Dispose();
+                cmd.Dispose();
+            }
+            return usu;
+        }
+
         public Boolean ValidarUsuario(Usuario usuario)
         {
             try
@@ -64,16 +112,16 @@ namespace Infraestructura.Data.SQLServer
                 conexion = new Conexion().Conectar();
                 cmd = new SqlCommand();
                 cmd.Connection = conexion;
-                cmd.CommandText="INSERT INTO TB_USUARIO(NOM_USU,APEPAT_USU,APEMAT_USU,FECNAC_USU,EMAIL_USU,CONTR_USU,"+
-                                "SEXO_USU) VALUES(@NOM,@APEPAT,@APEMAT,@FECNAC,@EMAIL,@CONTR,@SEXO)";
-                cmd.Parameters.AddWithValue("@NOM", usuario.nom_usu);
-                cmd.Parameters.AddWithValue("@APEPAT", usuario.apePat_usu);
-                cmd.Parameters.AddWithValue("@APEMAT", usuario.apeMat_usu);
-                cmd.Parameters.AddWithValue("@FECNAC", usuario.fecNac_usu);
-                cmd.Parameters.AddWithValue("@EMAIL", usuario.email_usu);
-                cmd.Parameters.AddWithValue("@CONTR", usuario.contr_usu);
-                cmd.Parameters.AddWithValue("@SEXO", usuario.sexo_usu);
-
+                cmd.CommandText="INSERT INTO TB_USUARIO(nom_usu,apePat_usu,apeMat_usu,fecNac_usu,email_usu,contr_usu,"+
+                                "sexo_usu) VALUES(@nom_usu,@apePat_usu,@apeMat_usu,@fecNac_usu,@email_usu,@contr_usu,@sexo_usu)";
+                cmd.Parameters.AddWithValue("@nom_usu", usuario.nom_usu);
+                cmd.Parameters.AddWithValue("@apePat_usu", usuario.apePat_usu);
+                cmd.Parameters.AddWithValue("@apeMat_usu", usuario.apeMat_usu);
+                cmd.Parameters.AddWithValue("@fecNac_usu", usuario.fecNac_usu);
+                cmd.Parameters.AddWithValue("@email_usu", usuario.email_usu);
+                cmd.Parameters.AddWithValue("@contr_usu", usuario.contr_usu);
+                cmd.Parameters.AddWithValue("@sexo_usu", usuario.sexo_usu);
+                
                 cmd.CommandType = CommandType.Text;
 
                 conexion.Open();
