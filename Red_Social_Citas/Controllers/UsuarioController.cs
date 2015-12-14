@@ -231,7 +231,7 @@ namespace Red_Social_Citas.Controllers
             foto.cod_usu = usuario.cod_usu;
             foto.ruta = Request.Files["foto1"].FileName;
             usuarioManager.InsertarFoto(foto);
-            
+                                
             return RedirectToAction("Perfil");
         }
 
@@ -242,10 +242,13 @@ namespace Red_Social_Citas.Controllers
 
             Usuario usuario = (Usuario) Session["usuario"];
             usuarioManager.actualizarCompatibilidad(usuario);
-
-
+            
             Foto foto = usuarioManager.buscarFoto(usuario);
-            ViewBag.ruta = foto.ruta;
+
+            usuario.foto = foto.ruta;
+
+            Session["usuario"] = usuario;
+
             List<Usuario> usuarios = usuarioManager.listarUsuariosFiltro(usuario);
 
             ViewBag.usuarios = usuarios;
@@ -267,9 +270,6 @@ namespace Red_Social_Citas.Controllers
             if(usuario !=null){
 
                 Session["usuario"] = usuario;
-                Foto foto = usuarioManager.buscarFoto(usuario);
-
-                ViewBag.ruta = foto.ruta;
                                
                 return RedirectToAction("Perfil");
             }
@@ -285,23 +285,91 @@ namespace Red_Social_Citas.Controllers
             {
                 return RedirectToAction("Mensajes",new {cod_usu2 = Request["cod_usu2"]});
             }
-            else
+            else if(Request.Form["favorito"]!=null)
             {
                 UsuarioManager usuarioManager = new UsuarioManager();
 
                 Usuario usuario = (Usuario)Session["usuario"];
                 usuarioManager.RegistrarFavorito(usuario,Request["cod_usu2"]);
+                String cod = Request["cod_usu2"];
+
+                Usuario usuario2 = usuarioManager.BuscarUsuario(Int32.Parse(cod));
+                usuario2.favorito = 1;
+                Session["usuario2"] = usuario2;
 
                 return RedirectToAction("Perfil");
+            }
+            else
+            {
+                return RedirectToAction("PerfilCompleto", new { cod_usu2 = Request["cod_usu2"] });
+
             }
             
 
         }
 
+
+        public ActionResult PerfilCompleto(string cod_usu2)
+        {
+            UsuarioManager usuarioManager = new UsuarioManager();
+            Usuario usuario2 = usuarioManager.BuscarUsuario(Int32.Parse(cod_usu2));
+            usuario2.foto = usuarioManager.buscarFoto(usuario2).ruta;
+
+            Session["usuario2"] = usuario2;
+
+            ViewBag.talla = usuarioManager.buscarTalla(usuario2);
+            ViewBag.estCiv = usuarioManager.buscarEstCiv(usuario2);
+            ViewBag.rasgo = usuarioManager.buscarRasgo(usuario2);
+            ViewBag.contextura = usuarioManager.buscarContextura(usuario2);
+            ViewBag.actividad = usuarioManager.buscarActividad(usuario2);
+
+            ViewBag.cualidades = usuarioManager.buscarCualidades(usuario2);
+
+            return View();
+
+        }
+
         public ActionResult Mensajes(string cod_usu2)
         {
+           
+            UsuarioManager usuarioManager = new UsuarioManager();
+            Usuario usuario2 = usuarioManager.BuscarUsuario(Int32.Parse(cod_usu2));
+            usuario2.foto = usuarioManager.buscarFoto(usuario2).ruta;
 
+            Session["usuario2"] = usuario2;
 
+            Usuario usuario = (Usuario)Session["usuario"];
+
+            ViewBag.foto1 = usuario.foto;
+            ViewBag.foto2 = usuario2.foto;
+
+            MensajeManager mensajeManager = new MensajeManager();
+            Mensaje mensaje = new Mensaje();
+            mensaje.cod_usu1 = usuario.cod_usu;
+            usuario = (Usuario)Session["usuario2"];
+            mensaje.cod_usu2 = usuario.cod_usu;
+            List<Mensaje> mensajes = mensajeManager.listarMensajes(mensaje);
+            ViewBag.mensajes = mensajes;
+
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult EnviarMensaje()
+        {
+            MensajeManager mensajeManager = new MensajeManager();
+
+            Mensaje mensaje = new Mensaje();
+            Usuario usuario = (Usuario)Session["usuario"];
+            mensaje.cod_usu1 = usuario.cod_usu;
+            usuario = (Usuario)Session["usuario2"];
+            mensaje.cod_usu2 = usuario.cod_usu;
+            mensaje.mensaje = Request.Form["mensaje"];
+
+            mensajeManager.EnviarMensaje(mensaje);
+
+            List<Mensaje> mensajes = mensajeManager.listarMensajes(mensaje);
+            ViewBag.mensajes = mensajes;
             return View();
         }
 

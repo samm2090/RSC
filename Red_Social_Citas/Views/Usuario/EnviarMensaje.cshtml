@@ -1,0 +1,28 @@
+﻿
+@{Layout = "";}
+
+<textarea class="form-control" id="abajo" rows="10" readonly style="max-height:25em;min-height:25em;">
+    @if (ViewBag.mensajes != null)
+    {
+        foreach (var men in ViewBag.mensajes as List<Dominio.Core.Entities.Mensaje>)
+        {
+            Dominio.Core.Entities.Usuario usuario1 = (Dominio.Core.Entities.Usuario)Session["usuario"];
+            Dominio.Core.Entities.Usuario usuario2 = (Dominio.Core.Entities.Usuario)Session["usuario2"];
+          
+                if (men.cod_usu1 == usuario1.cod_usu)
+                {
+                @usuario1.nom_usu @Html.Raw(": &nbsp") @men.mensaje @Html.Raw("&#13;&#10")
+                }
+                else
+                {
+                @usuario2.nom_usu @Html.Raw(": &nbsp") @men.mensaje @Html.Raw("&#13;&#10")
+                }
+        }
+    }
+</textarea>
+
+<script>
+    $(document).ready(function () {
+        $('#abajo').scrollTop($('#abajo')[0].scrollHeight);
+    });
+</script>

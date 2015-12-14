@@ -189,7 +189,7 @@ Create table tb_Favorito(
 )
 go
 
-select * from tb_Favorito
+
 
 create table tb_Compatibilidad(
 	cod_usu1 int not null references tb_Usuario(cod_usu),
@@ -347,6 +347,8 @@ Values	(1,1,3,2,'SI','NO'),
 		(5,3,4,1,'NO','NO'),
 		(6,7,2,3,'SI','SI')
 		GO
+
+
 INSERT INTO tb_Cualidades_Usuario(cod_usu,cod_cua)
 VALUES		(1,2),
 			(1,3),
@@ -354,6 +356,8 @@ VALUES		(1,2),
 			(2,2),
 			(3,3),
 			(4,1),
+			(4,3),
+			(4,5),
 			(5,6),
 			(6,4)
 GO
@@ -373,6 +377,7 @@ VALUES		(1,2,'Hola'),
 			(1,2,'¿Donde vives?'),
 			(2,1,'Chau'),
 			(3,1,'Holaa'),
+			(3,1,'Te quiero'),
 			(1,3,'¿Tienes hijos?'),
 			(4,1,'Hi')
 go
@@ -391,12 +396,18 @@ where cod_usu1=1 and cod_usu2=2 or cod_usu1=2 and cod_usu2=1
 order by fecha_mens
 go
 
+Create procedure pr_listarMensajes
+@cod_usu1 int,
+@cod_usu2 int
+AS
+BEGIN
+	select  * from tb_Mensaje 
+	where cod_usu1=@cod_usu1 and cod_usu2=@cod_usu2 or cod_usu1=@cod_usu2 and cod_usu2=@cod_usu1
+	order by fecha_mens ASC
+END
+GO
 
-select * from tb_Mensaje 
-where cod_usu1=1 and cod_usu2=3 or cod_usu1=3 and cod_usu2=1
-order by fecha_mens
-go
-
+exec pr_listarMensajes 7,4
 SELECT * FROM tb_Foto
 GO
 
@@ -406,20 +417,39 @@ go
 SELECT * FROM tb_Cualidades_Interes
 GO
 
-SELECT * FROM tb_Informacion_Usuario
+SELECT *  FROM tb_Informacion_Usuario
+
+SELECT desc_cua  FROM tb_Cualidad i join tb_Cualidades_Usuario t
+on i.cod_cua = t.cod_cua
+where cod_usu=1;
 GO
 SELECT * FROM tb_Intereses
 GO
 
-SELECT u.*,c.*,f.ruta FROM tb_Usuario u join tb_Compatibilidad c on c.cod_usu2=u.cod_usu join tb_Foto f on f.cod_usu=c.cod_usu2
-WHERE c.cod_usu1=1
-ORDER BY porcentaje DESC
+Create procedure pr_listarUsuariosFilto
+@cod_usu int
+as
+BEGIN
+	SELECT u.*,c.*,f.ruta,
+	Case when
+	(select favorito from tb_Favorito where cod_usu2=c.cod_usu2 and cod_usu1=@cod_usu) = 1 then 1
+	else 0
+	end as favorito 
+	FROM tb_Usuario u join tb_Compatibilidad c 
+	on c.cod_usu2=u.cod_usu join tb_Foto f 
+	on f.cod_usu=c.cod_usu2
+	WHERE c.cod_usu1=@cod_usu
+	ORDER BY porcentaje DESC
+END
 GO
 
 SELECT * from tb_Usuario
 
 select * from tb_Compatibilidad
 GO
+
+select * from tb_Favorito where cod_usu1=7
+go
 
 CREATE PROCEDURE pr_insertarCompatibilidad
 	@cod_usu int

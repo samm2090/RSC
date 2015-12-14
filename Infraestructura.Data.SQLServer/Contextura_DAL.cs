@@ -57,6 +57,53 @@ namespace Infraestructura.Data.SQLServer
           
             return contexturas;
         }
-    
+
+
+        public string buscarContextura(Usuario usuario2)
+        {
+            String contextura;
+            try
+            {
+                conexion = new Conexion().Conectar();
+                cmd = new SqlCommand();
+                cmd.Connection = conexion;
+                cmd.CommandText = "SELECT desc_contex FROM tb_Informacion_Usuario i join tb_contextura t " +
+                                  "on i.cod_contex = t.cod_contex " +
+                                  "WHERE cod_usu=@cod_usu";
+                cmd.Parameters.AddWithValue("@cod_usu", usuario2.cod_usu);
+
+                cmd.CommandType = CommandType.Text;
+
+                conexion.Open();
+                reader = cmd.ExecuteReader();
+                
+                if (reader.Read())
+                {
+                    contextura = Convert.ToString(reader["desc_contex"]);
+
+                }
+                else
+                {
+                    contextura = "";
+                }
+                reader.Close();
+            }
+            catch (Exception e)
+            {
+                // Debug.WriteLine(e.ToString());
+                contextura = "";
+            }
+            finally
+            {
+                if (conexion.State == ConnectionState.Open)
+                {
+                    conexion.Close();
+                }
+                conexion.Dispose();
+                cmd.Dispose();
+            }
+            return contextura;
+        }
+        
     }
 }

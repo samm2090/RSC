@@ -60,6 +60,8 @@ namespace Dominio.Core.Entities
         [DisplayName("Compatibilidad")]
         public double porcentaje { get; set; }
 
+        public int favorito { get; set; }
+
         [DisplayName("Foto")]
         public String foto { get; set; }
 

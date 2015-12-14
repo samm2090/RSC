@@ -19,13 +19,18 @@ namespace Dominio.MainModule
         Rasgo_DAL rasgoDAL = new Rasgo_DAL();
         Contextura_DAL contexturaDAL = new Contextura_DAL();
         EstadoCivil_DAL estCivDAL = new EstadoCivil_DAL();
-        Cualidad_DAL cualidadDAL = new Cualidad_DAL();
+        
         Foto_DAL fotoDAL = new Foto_DAL();
 
       
         public Usuario BuscarUsuario(Usuario usuario)
         {
             return usuarioDAL.BuscarUsuario(usuario);
+        }
+
+        public Usuario BuscarUsuario(int cod_usu2)
+        {
+            return usuarioDAL.BuscarUsuario(cod_usu2);
         }
 
 
@@ -61,6 +66,7 @@ namespace Dominio.MainModule
 
         public IEnumerable<Cualidad> listarCualidades()
         {
+            Cualidad_DAL cualidadDAL = new Cualidad_DAL();
             return cualidadDAL.ListarCualidades();
         }
 
@@ -105,8 +111,6 @@ namespace Dominio.MainModule
 
         public Foto buscarFoto(Usuario usuario)
         {
-            Foto_DAL fotoDAL = new Foto_DAL();
-
             return fotoDAL.buscarFoto(usuario);
         }
 
@@ -123,6 +127,39 @@ namespace Dominio.MainModule
         public void RegistrarFavorito(Usuario usuario,string cod_usu2)
         {
             usuarioDAL.RegistrarFavorito(usuario, Int32.Parse(cod_usu2));
+        }
+
+        
+        public String buscarTalla(Usuario usuario2)
+        {
+            return tallaDAL.buscarTalla(usuario2);
+        }
+
+        public String buscarEstCiv(Usuario usuario2)
+        {
+            return estCivDAL.buscarEstCiv(usuario2);
+        }
+
+        public String buscarRasgo(Usuario usuario2)
+        {
+            return rasgoDAL.buscarRasgo(usuario2);
+        }
+
+        public String buscarContextura(Usuario usuario2)
+        {
+            return contexturaDAL.buscarContextura(usuario2);
+        }
+
+        public String buscarActividad(Usuario usuario2)
+        {
+            Actividad_DAL actDAL = new Actividad_DAL();
+            return actDAL.buscarActividad(usuario2);
+        }
+
+        public List<String> buscarCualidades(Usuario usuario2)
+        {
+            Cualidad_DAL cualidadDAL = new Cualidad_DAL();
+            return cualidadDAL.buscarCualidades(usuario2);
         }
     }
 }

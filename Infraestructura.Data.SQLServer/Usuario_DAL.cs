@@ -69,46 +69,6 @@ namespace Infraestructura.Data.SQLServer
             return usu;
         }
 
-        //public Boolean ValidarUsuario(Usuario usuario)
-        //{
-        //    try
-        //    {
-        //        conexion = new Conexion().Conectar();
-        //        cmd = new SqlCommand();
-        //        cmd.Connection = conexion;
-        //        cmd.CommandText = "SELECT email_usu,contr_usu FROM TB_USUARIO " +
-        //                        "WHERE email_usu=@email_usu and contr_usu=@contr_usu";
-        //        cmd.Parameters.AddWithValue("@email_usu", usuario.email_usu);
-        //        cmd.Parameters.AddWithValue("@contr_usu", usuario.contr_usu);
-        //        cmd.CommandType = CommandType.Text;
-
-        //        conexion.Open();
-        //        reader = cmd.ExecuteReader();
-
-        //        String email, contrasena;
-        //        email = Convert.ToString(reader["email_usu"]);
-        //        contrasena = Convert.ToString(reader["contr_usu"]);
-        //        if (usuario.email_usu.Equals(email) && usuario.contr_usu.Equals(contrasena))
-        //        {
-        //            return true;
-        //        }
-        //        else return false;
-        //    }
-        //    catch(Exception e) {
-        //        Debug.WriteLine(e.ToString());
-        //        return false;
-        //    }
-        //    finally
-        //    {
-        //        if (conexion.State == ConnectionState.Open)
-        //        {
-        //            conexion.Close();
-        //        }
-        //        conexion.Dispose();
-        //        cmd.Dispose();
-        //    }               
-        //}
-
         public String RegistrarUsuario(Usuario usuario)
         {
 
@@ -231,13 +191,10 @@ namespace Infraestructura.Data.SQLServer
                 conexion = new Conexion().Conectar();
                 cmd = new SqlCommand();
                 cmd.Connection = conexion;
-                cmd.CommandText = "SELECT u.*,c.*,f.ruta FROM tb_Usuario u join tb_Compatibilidad c on c.cod_usu2=u.cod_usu " +
-                                  "join tb_Foto f on f.cod_usu=c.cod_usu2 " +
-                                  "WHERE cod_usu1=@cod_usu " +
-                                  "ORDER BY porcentaje DESC";
+                cmd.CommandText = "pr_listarUsuariosFilto";
 
                 cmd.Parameters.AddWithValue("@cod_usu", usuario.cod_usu);
-                cmd.CommandType = CommandType.Text;
+                cmd.CommandType = CommandType.StoredProcedure;
                           
                 conexion.Open();
                 reader = cmd.ExecuteReader();
@@ -258,6 +215,7 @@ namespace Infraestructura.Data.SQLServer
                     usu.enLinea = Convert.ToInt32(reader["enLinea"]);
                     usu.porcentaje = Convert.ToDouble(reader["porcentaje"]);
                     usu.foto = Convert.ToString(reader["ruta"]);
+                    usu.favorito = Convert.ToInt32(reader["favorito"]);
 
                     usuarios.Add(usu);
                 }
@@ -340,6 +298,60 @@ namespace Infraestructura.Data.SQLServer
                 conexion.Dispose();
                 cmd.Dispose();
             }
+        }
+
+
+
+        public Usuario BuscarUsuario(int cod_usu2)
+        {
+            Usuario usu = new Usuario();
+            try
+            {
+                conexion = new Conexion().Conectar();
+                cmd = new SqlCommand();
+                cmd.Connection = conexion;
+                cmd.CommandText = "SELECT * FROM TB_USUARIO " +
+                                    "WHERE cod_usu=@cod_usu";
+                cmd.Parameters.AddWithValue("@cod_usu", cod_usu2);
+                cmd.CommandType = CommandType.Text;
+
+                conexion.Open();
+                reader = cmd.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    usu.cod_usu = Convert.ToInt32(reader["cod_usu"]);
+                    usu.nom_usu = Convert.ToString(reader["nom_usu"]);
+                    usu.apePat_usu = Convert.ToString(reader["apePat_usu"]);
+                    usu.apeMat_usu = Convert.ToString(reader["apeMat_usu"]);
+                    usu.fecReg_usu = Convert.ToDateTime(reader["fecReg_usu"]);
+                    usu.fecNac_usu = Convert.ToDateTime(reader["fecNac_usu"]);
+                    usu.email_usu = Convert.ToString(reader["email_usu"]);
+                    usu.contr_usu = Convert.ToString(reader["contr_usu"]);
+                    usu.sexo_usu = Convert.ToString(reader["sexo_usu"]);
+                    usu.cod_estCue = Convert.ToInt32(reader["cod_estCue"]);
+                    usu.enLinea = Convert.ToInt32(reader["enLinea"]);
+                }
+                else
+                {
+                    usu = null;
+                }
+                reader.Close();
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.ToString());
+            }
+            finally
+            {
+                if (conexion.State == ConnectionState.Open)
+                {
+                    conexion.Close();
+                }
+                conexion.Dispose();
+                cmd.Dispose();
+            }
+            return usu;
         }
     }
 }

@@ -59,7 +59,12 @@
     <script>
         $(document).ready(function () {
             $(".datePicker").datepicker({
-                dateFormat: "yy/mm/dd"
+                dateFormat: "yy/mm/dd",
+                changeYear: true,
+                changeMonth: true,
+                showButtonPanel: true,
+                yearRange: "-100:+0",
+                
             });
         });
     </script>

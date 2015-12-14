@@ -7,85 +7,120 @@
 <header>
     <div class="container-fluid">
         <div class="hero">
-            <div class="col-md-5 col-md-offset-6">
-                <div class="panel panel-primary registrate">
-                    <div class="panel-heading">
-                        Registrate
+            <div class="row">
+                <div class="col-md-3 col-md-offset-1" style="margin-top:20px">
+                    <p style="font-family:'Lucida Handwriting';font-size:50px;font-style:italic;color:white">Encuentra a tu pareja ideal</p>
+                </div>
+                <div class="col-md-5 col-md-offset-2">
+                    <div class="panel panel-primary registrate">
+                        <div class="panel-heading">
+                            <span style="font-size:30px">Registrate</span>
+                        </div>
+                        <div class="panel-body">
+                            @using (@Html.BeginForm("Registrar", "Usuario", FormMethod.Post))
+                            {
+                                <table style="border-collapse:separate;border-spacing:2px">
+                                    <tr>
+                                        <td>
+                                            @Html.LabelFor(model => model.nom_usu):
+                                        </td>
+                                        <td>
+                                            @Html.TextBoxFor(model => model.nom_usu, new { placeholder = "Carlos" })
+                                            @Html.ValidationMessageFor(model => model.nom_usu)
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            @Html.LabelFor(model => model.apePat_usu):
+                                        </td>
+                                        <td>
+                                            @Html.TextBoxFor(model => model.apePat_usu, new { placeholder = "Perez" })
+                                            @Html.ValidationMessageFor(model => model.apePat_usu)
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            @Html.LabelFor(model => model.apeMat_usu):
+                                        </td>
+                                        <td>
+                                            @Html.TextBoxFor(model => model.apeMat_usu, new { placeholder = "Diaz" })
+                                            @Html.ValidationMessageFor(model => model.apeMat_usu)
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            @Html.LabelFor(model => model.fecNac_usu):
+                                        </td>
+                                        <td>
+                                            @Html.TextBoxFor(model => model.fecNac_usu, new { @class = "datePicker", placeholder = "yyyy/mm/dd" })
+                                            @Html.ValidationMessageFor(model => model.fecNac_usu)
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            @Html.LabelFor(model => model.email_usu):
+                                        </td>
+                                        <td>
+                                            @Html.TextBoxFor(model => model.email_usu, new { placeholder = "carlos123@gmail.com" })
+                                            @Html.ValidationMessageFor(model => model.email_usu)
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            @Html.LabelFor(model => model.sexo_usu):
+                                        </td>
+                                        <td>
+                                            M:@Html.RadioButtonFor(model => model.sexo_usu, "M", new { Checked = "checked" })
+                                            F:@Html.RadioButtonFor(model => model.sexo_usu, "F")
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            @Html.LabelFor(model => model.contr_usu):
+                                        </td>
+                                        <td>
+                                            @Html.PasswordFor(model => model.contr_usu, new { placeholder = "•••••••" })
+                                            @Html.ValidationMessageFor(model => model.contr_usu)
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td><input type="submit" value="Continuar" /></td>
+                                    </tr>
+                                </table>
+                            }
+                        </div>
                     </div>
-                    <div class="panel-body">
-                        @using (@Html.BeginForm("Registrar", "Usuario", FormMethod.Post))
-                        {
-                            <table>
-                                <tr>
-                                    <td>
-                                        @Html.LabelFor(model => model.nom_usu):
-                                    </td>
-                                    <td>
-                                        @Html.TextBoxFor(model => model.nom_usu, new{placeholder = "Carlos" } )
-                                        @Html.ValidationMessageFor(model => model.nom_usu)
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        @Html.LabelFor(model => model.apePat_usu):
-                                    </td>
-                                    <td>
-                                        @Html.TextBoxFor(model => model.apePat_usu, new { placeholder = "Perez" })
-                                        @Html.ValidationMessageFor(model => model.apePat_usu)
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        @Html.LabelFor(model => model.apeMat_usu):
-                                    </td>
-                                    <td>
-                                        @Html.TextBoxFor(model => model.apeMat_usu, new { placeholder = "Diaz" })
-                                        @Html.ValidationMessageFor(model => model.apeMat_usu)
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        @Html.LabelFor(model => model.fecNac_usu):
-                                    </td>
-                                    <td>
-                                        @Html.TextBoxFor(model => model.fecNac_usu, new { @class = "datePicker" , placeholder = "yyyy/mm/dd" })
-                                        @Html.ValidationMessageFor(model => model.fecNac_usu)
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        @Html.LabelFor(model => model.email_usu):
-                                    </td>
-                                    <td>
-                                        @Html.TextBoxFor(model => model.email_usu, new { placeholder = "carlos123@gmail.com"})
-                                        @Html.ValidationMessageFor(model => model.email_usu)
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        @Html.LabelFor(model => model.sexo_usu):
-                                    </td>
-                                    <td>
-                                        M:@Html.RadioButtonFor(model => model.sexo_usu, "M", new { Checked = "checked" })
-                                        F:@Html.RadioButtonFor(model => model.sexo_usu,"F")
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        @Html.LabelFor(model => model.contr_usu):
-                                    </td>
-                                    <td>
-                                        @Html.PasswordFor(model => model.contr_usu, new { placeholder = "•••••••" })
-                                        @Html.ValidationMessageFor(model => model.contr_usu)
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                    <td><input type="submit" value="Continuar" /></td>
-                                </tr>
-                            </table>
-                        }
-                    </div>
+                </div>
+            </div>
+            <div class="row" style="margin-top:50px">
+                
+
+                <div class="col-md-4 col-md-offset-7">
+                    <table style="border-spacing:30px; border-collapse:separate;">
+                        <tr>
+                            <td>
+                                <a href="http://www.facebook.com">
+                                    <img border="0" alt="Facebook" src="~/Images/fb.jpg" width="50" height="50">
+                                </a>
+                            </td>
+                            <td>
+                                <a href="http://www.twitter.com">
+                                    <img border="0" alt="Twitter" src="~/Images/tuitter.jpg" width="50" height="50">
+                                </a>
+                            </td>
+                            <td>
+                                <a href="http://www.pinterest.com">
+                                    <img border="0" alt="Pinterest" src="~/Images/pinterest.jpg" width="50" height="50">
+                                </a>
+                            </td>
+                            <td>
+                                <a href="http://www.instagram.com">
+                                    <img border="0" alt="Instagram" src="~/Images/instag.jpg" width="50" height="50">
+                                </a>
+                            </td>
+                        </tr>
+                    </table>
                 </div>
             </div>
         </div>

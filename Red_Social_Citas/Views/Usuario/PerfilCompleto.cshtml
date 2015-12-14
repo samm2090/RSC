@@ -1,0 +1,105 @@
+﻿@{
+    ViewBag.Title = "PerfilCompleto";
+    Layout = "~/Views/Shared/_Login-Layout.cshtml";
+    Dominio.Core.Entities.Usuario usuario2 = (Dominio.Core.Entities.Usuario)Session["usuario2"];
+}
+<div class="row">
+    <div class="col-md-3 col-md-offset-2">
+        <h2>Perfil Completo</h2>
+
+        <table style="border-collapse:separate;border-spacing:5px" class="table-bordered">
+            <tr>
+                <td><img id="foto1" src="~/Fotos/@usuario2.foto" width="242" height="200" /></td>
+                <td>
+                    <table style="border-collapse:separate;border-spacing:5px">
+                        <tr>
+                            @using (@Html.BeginForm("OpcionesPareja", "Usuario", FormMethod.Post))
+                            {
+                                if (usuario2.favorito == 1)
+                                {<td><img id="foto1" src="~/Images/favorito.png" width="20" height="20" /></td>}
+                                <td>
+                                    <input type="hidden" name="cod_usu2" value="@usuario2.cod_usu" />
+
+                                    <input type="submit" name="mensaje" value="Mensaje" />
+                                </td>
+
+                                if (usuario2.favorito == 0)
+                                {
+                                <tr>
+                                    <td>
+                                        <input type="submit" name="favorito" value="Agregar Favoritos" />
+                                    </td>
+                                </tr>
+                                }
+                                <tr>
+                                    <td>
+                                        <input type="submit" name="perfil" value="Ver Perfil completo" />
+                                    </td>
+                                </tr>
+                            }
+                        </table>
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td class="negrita">Nombre: </td>
+                    <td>@usuario2.nom_usu</td>
+                </tr>
+                <tr>
+                    <td class="negrita">Apellidos: </td>
+                    <td>@usuario2.apePat_usu @usuario2.apeMat_usu</td>
+                </tr>
+                <tr>
+                    <td class="negrita">Edad: </td>
+                    <td>@usuario2.calcularEdad(usuario2.fecNac_usu)</td>
+                </tr>
+                <tr>
+                    <td class="negrita">Sexo: </td>
+                    <td>@usuario2.sexo_usu</td>
+                </tr>
+                <tr>
+                    <td class="negrita">Correo: </td>
+                    <td>@usuario2.email_usu</td>
+                </tr>
+            </table>
+
+        </div>
+
+        <div class="col-md-5 col-md-offset-1" style="margin-top:24px">
+            <h2>Informacion personal</h2>
+
+            <table style="border-collapse:separate;border-spacing:10px" class="table-bordered">
+                <tr>
+                    <td class="negrita">Talla: </td>
+                    <td>@ViewBag.talla</td>
+                </tr>
+                <tr>
+                    <td class="negrita">Estado Civil: </td>
+                    <td>@ViewBag.estCiv</td>
+                </tr>
+                <tr>
+                    <td class="negrita">Rasgo cultural: </td>
+                    <td>@ViewBag.rasgo</td>
+                </tr>
+                <tr>
+                    <td class="negrita">Contextura: </td>
+                    <td>@ViewBag.contextura</td>
+                </tr>
+                <tr>
+                    <td class="negrita">Actividad favorita: </td>
+                    <td>@ViewBag.actividad</td>
+                </tr>
+                <tr>
+                    <td class="negrita">Cualidades principales: </td>
+                    <td>
+                        @foreach (var cua in ViewBag.cualidades)
+                        {
+                            @cua <br />
+                        }
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+    </div>

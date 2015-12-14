@@ -4,45 +4,63 @@
     Dominio.Core.Entities.Usuario usuario = (Dominio.Core.Entities.Usuario)Session["usuario"];
 }
 
-<h2>Perfil</h2>
+<h2 style="margin-left:50px;font-size:60px">Perfil</h2>
 
 <div class="row">
     <div class="col-md-5 col-md-offset-1">
         <div class="panel panel-default">
-            <div class="panel-heading">Datos personales</div>
+            <div class="panel-heading"><span style="font-size:15px">Datos personales</span></div>
             <div class="panel-body" style="min-height:30em">
-                <table>
+                <table style="border-collapse:separate;border-spacing:10px;margin-left:40px" class="table-bordered">
                     <tr>
-                        <td><img id="foto1" src="~/Fotos/@ViewBag.ruta" width="242" height="200" /></td>
+                        <td><img id="foto1" src="~/Fotos/@usuario.foto" width="242" height="200" /></td>
+                        <td>
+                            @using (@Html.BeginForm("Actulizar", "Usuario", FormMethod.Post))
+                            {
+                                <table style="margin-left:10px;border-collapse:separate;border-spacing:10px">
+                                    <tr>
+                                        <td>
+                                            <input type="submit" name="foto" value="Actualizar Foto" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <input type="submit" name="perfil" value="Perfil Completo" />
+                                        </td>
+                                    </tr>
+                                </table>
+                            }
+                        </td>
                     </tr>
                     <tr>
-                        <td>Nombre: </td>
+                        <td class="negrita">Nombre: </td>
                         <td>@usuario.nom_usu</td>
                     </tr>
                     <tr>
-                        <td>Apellidos: </td>
+                        <td class="negrita">Apellidos: </td>
                         <td>@usuario.apePat_usu @usuario.apeMat_usu</td>
                     </tr>
                     <tr>
-                        <td>Edad: </td>
+                        <td class="negrita">Edad: </td>
                         <td>@usuario.calcularEdad(usuario.fecNac_usu)</td>
                     </tr>
                     <tr>
-                        <td>Sexo: </td>
+                        <td class="negrita">Sexo: </td>
                         <td>@usuario.sexo_usu</td>
                     </tr>
                     <tr>
-                        <td>Correo: </td>
+                        <td class="negrita">Correo: </td>
                         <td>@usuario.email_usu</td>
                     </tr>
                 </table>
+
             </div>
         </div>
     </div>
 
     <div class="col-md-5">
         <div class="panel panel-default">
-            <div class="panel-heading">Personas compatibles</div>
+            <div class="panel-heading"><span style="font-size:15px">Personas compatibles</span></div>
             <div class="panel-body" style="max-height:30em;overflow-y:scroll;">
                 <table class="table table-hover">
                     @foreach (var usu in ViewBag.usuarios as List<Dominio.Core.Entities.Usuario>)
@@ -51,10 +69,11 @@
                             <td><img id="foto1" src="~/Fotos/@usu.foto" width="171" height="180" /></td>
                             <td>
                                 <table>
-                                    <tr><td>@usu.porcentaje %</td></tr>
-                                    <tr><td>Nombre: </td><td>@usu.nom_usu</td></tr>
-                                    <tr><td>Apellidos: </td><td>@usu.apePat_usu @usu.apeMat_usu</td></tr>
-                                    <tr><td>Edad:</td><td>@usu.calcularEdad(usu.fecNac_usu)</td></tr>
+                                    <tr><td class="negritaPorcentaje">@usu.porcentaje %</td>@if (usu.favorito == 1)
+                                    {<td><img id="foto1" src="~/Images/favorito.png" width="20" height="20" /></td>}</tr>
+                                    <tr><td class="negrita">Nombre: </td><td>@usu.nom_usu</td></tr>
+                                    <tr><td class="negrita">Apellidos: </td><td>@usu.apePat_usu @usu.apeMat_usu</td></tr>
+                                    <tr><td class="negrita">Edad:</td><td>@usu.calcularEdad(usu.fecNac_usu)</td></tr>
 
                                     @using (@Html.BeginForm("OpcionesPareja","Usuario",FormMethod.Post))
                                     {
@@ -63,8 +82,13 @@
                                             
                                             <input type="submit" name="mensaje" value="Mensaje"/>
                                             </td></tr>
+                                        if (usu.favorito == 0) { 
                                         <tr><td>
                                             <input type="submit" name="favorito" value="Agregar Favoritos"/>
+                                            </td></tr>
+                                        }   
+                                        <tr><td>
+                                            <input type="submit" name="perfil" value="Ver Perfil completo"/>
                                             </td></tr>
                                     }
 
