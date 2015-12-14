@@ -16,7 +16,7 @@ namespace Infraestructura.Data.SQLServer
         SqlConnection conexion;
         SqlCommand cmd;
 
-        public String RegistrarIntereses(Usuario usuario, Intereses intereses)
+        public String RegistrarIntereses(Intereses intereses)
         {
 
             try
@@ -24,13 +24,12 @@ namespace Infraestructura.Data.SQLServer
                 conexion = new Conexion().Conectar();
                 cmd = new SqlCommand();
                 cmd.Connection = conexion;
-                cmd.CommandText = "INSERT INTO tb_Intereses(cod_usu,cod_talla_ran,cod_rasgo,cod_contex,cod_ing,hijos_interes,ing_interes) " +
-                                    "VALUES(@cod_usu,@cod_talla_ran,@cod_rasgo,@cod_contex,@cod_ing,@hijos_interes,@ing_interes)";
-                cmd.Parameters.AddWithValue("@cod_usu", usuario.cod_usu);
+                cmd.CommandText = "INSERT INTO tb_Intereses(cod_usu,cod_talla_ran,cod_rasgo,cod_contex,hijos_interes,ing_interes) " +
+                                    "VALUES(@cod_usu,@cod_talla_ran,@cod_rasgo,@cod_contex,@hijos_interes,@ing_interes)";
+                cmd.Parameters.AddWithValue("@cod_usu", intereses.cod_usu);
                 cmd.Parameters.AddWithValue("@cod_talla_ran", intereses.cod_talla_ran);
                 cmd.Parameters.AddWithValue("@cod_rasgo", intereses.cod_rasgo);
                 cmd.Parameters.AddWithValue("@cod_contex", intereses.cod_contex);
-                cmd.Parameters.AddWithValue("@cod_ing", intereses.cod_ing);
                 cmd.Parameters.AddWithValue("@hijos_interes", intereses.hijos_interes);
                 cmd.Parameters.AddWithValue("@ing_interes", intereses.ing_interes);
 

@@ -29,11 +29,10 @@ namespace Dominio.Core.Entities
         public String apeMat_usu  { get; set; }
 
         [DisplayName("Fecha de registro")]
-        [DataType(DataType.Date),DisplayFormat(DataFormatString="{0:yyyy/MM/dd}",ApplyFormatInEditMode=true)]
         public DateTime fecReg_usu { get; set; }
 
         [DisplayName("Fecha de nacimiento")]
-       // [RegularExpression(@"^[0-9]{4}[-/]$",ErrorMessage="Formato de fecha no valido")]
+        [DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
         [Required(ErrorMessage = "Fecha nacimiento obligatorio")]
         public DateTime fecNac_usu { get; set; }
 
@@ -54,6 +53,26 @@ namespace Dominio.Core.Entities
             
         [DisplayName("Estado de cuenta")]
         public int cod_estCue { get; set; }
+
+        [DisplayName("Online")]
+        public int enLinea { get; set; }
+
+        [DisplayName("Compatibilidad")]
+        public double porcentaje { get; set; }
+
+        [DisplayName("Foto")]
+        public String foto { get; set; }
+
+        public int calcularEdad(DateTime fecha){
+            DateTime hoy = DateTime.Today;
+
+            int edad = hoy.Year - fecha.Year;
+
+            if (fecha > hoy.AddYears(-edad))
+                edad--;
+
+            return edad;
+        }
 
     }
 }

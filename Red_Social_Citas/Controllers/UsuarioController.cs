@@ -181,6 +181,7 @@ namespace Red_Social_Citas.Controllers
                 Intereses intereses = (Intereses)Session["intereses"];
                 intereses.ing_interes = ing_interes;
                 Session["intereses"] = intereses;
+                usuarioManager.RegistrarInt(intereses);
 
                 String cod_cua = Request["cod_cua"];
                 String[] str_cc = cod_cua.Split(',');
@@ -203,7 +204,7 @@ namespace Red_Social_Citas.Controllers
                     cuaInts.Add(cuaInt);
                 }
 
-                Session["cuaInt"] = cuaInts;
+                usuarioManager.RegistrarCuaInt(cuaInts);
 
             }
 
@@ -212,23 +213,103 @@ namespace Red_Social_Citas.Controllers
 
 
         [HttpPost]
+        public ActionResult Registrar9()
+        {
+            UsuarioManager usuarioManager = new UsuarioManager();
+            string ruta1 = Server.MapPath(ConfigurationManager.AppSettings["Fotos"]) +
+                                    System.IO.Path.GetFileName(Request.Files["foto1"].FileName);
+            //string ruta2 = Server.MapPath(ConfigurationManager.AppSettings["Fotos"]) +
+            //                        System.IO.Path.GetFileName(Request.Files["foto2"].FileName);
+            //string ruta3 = Server.MapPath(ConfigurationManager.AppSettings["Fotos"]) +
+            //                        System.IO.Path.GetFileName(Request.Files["foto3"].FileName);
+
+            Request.Files["foto1"].SaveAs(ruta1);
+            
+            Foto foto = new Foto();
+
+            Usuario usuario = (Usuario)Session["usuario"];
+            foto.cod_usu = usuario.cod_usu;
+            foto.ruta = Request.Files["foto1"].FileName;
+            usuarioManager.InsertarFoto(foto);
+            
+            return RedirectToAction("Perfil");
+        }
+
         public ActionResult Perfil()
         {
-            string ruta1 = Server.MapPath(ConfigurationManager.AppSettings["RutaArchivos"]) +
-                                    System.IO.Path.GetFileName(Request.Files["foto1"].FileName);
-            string ruta2 = Server.MapPath(ConfigurationManager.AppSettings["RutaArchivos"]) +
-                                    System.IO.Path.GetFileName(Request.Files["foto2"].FileName);
-            string ruta3 = Server.MapPath(ConfigurationManager.AppSettings["RutaArchivos"]) +
-                                    System.IO.Path.GetFileName(Request.Files["foto3"].FileName);
-            
+
+            UsuarioManager usuarioManager = new UsuarioManager();
+
+            Usuario usuario = (Usuario) Session["usuario"];
+            usuarioManager.actualizarCompatibilidad(usuario);
+
+
+            Foto foto = usuarioManager.buscarFoto(usuario);
+            ViewBag.ruta = foto.ruta;
+            List<Usuario> usuarios = usuarioManager.listarUsuariosFiltro(usuario);
+
+            ViewBag.usuarios = usuarios;
+
             return View();
-        } 
+        }   
 
 
         [HttpPost]
-        public ActionResult Login(Usuario usuario)
+        public ActionResult Login(String email, String contrasena)
         {
+            UsuarioManager usuarioManager = new UsuarioManager();
+            Usuario usu = new Usuario();
+            usu.email_usu = email;
+            usu.contr_usu = contrasena;
+            
+            Usuario usuario = usuarioManager.BuscarUsuario(usu);
+
+            if(usuario !=null){
+
+                Session["usuario"] = usuario;
+                Foto foto = usuarioManager.buscarFoto(usuario);
+
+                ViewBag.ruta = foto.ruta;
+                               
+                return RedirectToAction("Perfil");
+            }
+
+            return RedirectToAction("Index","Index");
+        }
+
+        [HttpPost]
+        public ActionResult OpcionesPareja()
+        {
+
+            if (Request.Form["mensaje"] != null)
+            {
+                return RedirectToAction("Mensajes",new {cod_usu2 = Request["cod_usu2"]});
+            }
+            else
+            {
+                UsuarioManager usuarioManager = new UsuarioManager();
+
+                Usuario usuario = (Usuario)Session["usuario"];
+                usuarioManager.RegistrarFavorito(usuario,Request["cod_usu2"]);
+
+                return RedirectToAction("Perfil");
+            }
+            
+
+        }
+
+        public ActionResult Mensajes(string cod_usu2)
+        {
+
+
             return View();
+        }
+
+
+        public ActionResult CerrarSesion()
+        {
+            Session.Abandon();
+            return RedirectToAction("Index", "Index");
         }
     }
 }

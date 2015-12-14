@@ -22,11 +22,7 @@ namespace Dominio.MainModule
         Cualidad_DAL cualidadDAL = new Cualidad_DAL();
         Foto_DAL fotoDAL = new Foto_DAL();
 
-        public Boolean ValidarUsuario(Usuario usuario)
-        {
-            return usuarioDAL.ValidarUsuario(usuario);
-        }
-
+      
         public Usuario BuscarUsuario(Usuario usuario)
         {
             return usuarioDAL.BuscarUsuario(usuario);
@@ -95,6 +91,38 @@ namespace Dominio.MainModule
         public String  RegistrarCuaUsu(List<CualidadesUsuario> cuaUsu)
         {
             return cuaUsuDAL.IngresarCualidadesUsuarios(cuaUsu);
+        }
+
+        public String RegistrarCuaInt(List<CualidadesInteres> cuaInts)
+        {
+            return cuaIntDAL.IngresarCualidadInteres(cuaInts);
+        }
+
+        public String RegistrarInt(Intereses intereses)
+        {
+            return interesesDAL.RegistrarIntereses(intereses);
+        }
+
+        public Foto buscarFoto(Usuario usuario)
+        {
+            Foto_DAL fotoDAL = new Foto_DAL();
+
+            return fotoDAL.buscarFoto(usuario);
+        }
+
+        public List<Usuario> listarUsuariosFiltro(Usuario usuario)
+        {
+            return usuarioDAL.listarUsuariosFiltro(usuario);
+        }
+
+        public void actualizarCompatibilidad(Usuario usuario)
+        {
+            usuarioDAL.actualizarCompatibilidad(usuario);
+        }
+
+        public void RegistrarFavorito(Usuario usuario,string cod_usu2)
+        {
+            usuarioDAL.RegistrarFavorito(usuario, Int32.Parse(cod_usu2));
         }
     }
 }

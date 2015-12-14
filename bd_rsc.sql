@@ -95,6 +95,7 @@ Create table tb_Usuario(
     email_usu varchar(50) not null unique,
     contr_usu varchar(25) not null,
     sexo_usu char(1) not null check (sexo_usu in('M','F')),
+	enLinea int default 0 null,
     cod_estCue int not null default 1,
 
 	Constraint pk_cod_usu primary key (cod_usu),
@@ -127,7 +128,6 @@ Create Table tb_Intereses(
 	cod_talla_ran int not null,
 	cod_rasgo int not null,
 	cod_contex int not null,
-	cod_ing int not null,
 	hijos_interes char(2) not null check (hijos_interes in('Si','No')),
 	ing_interes char(2) not null check(ing_interes in('Si','No')),
 
@@ -135,8 +135,6 @@ Create Table tb_Intereses(
 	Constraint fk_cod_usu_inter foreign key (cod_usu) references tb_Usuario(cod_usu),
 	Constraint fk_cod_talla_ran foreign key (cod_talla_ran) references tb_Talla_Rango(cod_talla_ran),
 	Constraint fk_cod_rasgo2 foreign key (cod_rasgo) references tb_Rasgo(cod_rasgo),
-	Constraint fk_cod_contex2 foreign key (cod_contex) references tb_Contextura(cod_contex),
-	Constraint fk_cod_ing2 foreign key (cod_ing) references tb_Ingresos(cod_ing),
 )
 go
 
@@ -175,11 +173,29 @@ go
 
 Create Table tb_Foto(
 	cod_usu int not null,
-	cod_foto int not null identity(1,1),
-	foto varbinary(max) not null,
+	cod_foto int not null,
+	ruta varchar(100) not null,
 
 	Constraint pk_Foto primary key(cod_usu,cod_foto),
 	Constraint fk_cod_usu_foto foreign key(cod_usu) references tb_usuario(cod_usu)
+)
+go
+
+Create table tb_Favorito(
+	cod_usu1 int not null references tb_Usuario(cod_usu),
+	cod_usu2 int not null references tb_Usuario(cod_usu),
+	favorito int not null default 0,
+	primary key(cod_usu1,cod_usu2)
+)
+go
+
+select * from tb_Favorito
+
+create table tb_Compatibilidad(
+	cod_usu1 int not null references tb_Usuario(cod_usu),
+	cod_usu2 int not null references tb_Usuario(cod_usu),
+	porcentaje decimal(5,2) not null,
+	primary key(cod_usu1,cod_usu2)
 )
 go
 
@@ -198,13 +214,13 @@ Insert into tb_Talla_Rango(desc_talla_ran) values ('1.80 a 1.90 m');
 Insert into tb_Talla_Rango(desc_talla_ran) values ('1.90 a 2.00 m');
 Insert into tb_Talla_Rango(desc_talla_ran) values ('2.01 a más m');
 
-Insert into tb_Actividad(desc_act) values ('Salir con Amigos');
-Insert into tb_Actividad(desc_act) values ('Salir a Bailar');
-Insert into tb_Actividad(desc_act) values ('Ver Películas');
-Insert into tb_Actividad(desc_act) values ('Escuchar Música');
-Insert into tb_Actividad(desc_act) values ('Tener Sexo');
-Insert into tb_Actividad(desc_act) values ('Ir a la Playa');
-Insert into tb_Actividad(desc_act) values ('Hacer Deporte');
+Insert into tb_Actividad(desc_act) values ('Salir con amigos');
+Insert into tb_Actividad(desc_act) values ('Salir a bailar');
+Insert into tb_Actividad(desc_act) values ('Ver películas');
+Insert into tb_Actividad(desc_act) values ('Escuchar música');
+Insert into tb_Actividad(desc_act) values ('Probar nuevas comidas');
+Insert into tb_Actividad(desc_act) values ('Ir de paseo');
+Insert into tb_Actividad(desc_act) values ('Hacer deporte');
 
 Insert into tb_Ingresos (desc_ing) values ('S/.0 - 750');
 Insert into tb_Ingresos (desc_ing) values ('S/.750 - 1500');
@@ -233,12 +249,12 @@ Insert into tb_Contextura (desc_contex) values ('Gordo (a)');
 Insert into tb_Contextura (desc_contex) values ('Atlético (a)');
 Insert into tb_Contextura (desc_contex) values ('Promedio');
 
-Insert into tb_Rasgo (desc_rasgo) values ('Mestizo');
+Insert into tb_Rasgo (desc_rasgo) values ('Afrodescendciente');
+Insert into tb_Rasgo (desc_rasgo) values ('Andino');
 Insert into tb_Rasgo (desc_rasgo) values ('Asiático');
 Insert into tb_Rasgo (desc_rasgo) values ('Caucásico');
-Insert into tb_Rasgo (desc_rasgo) values ('Andino');
+Insert into tb_Rasgo (desc_rasgo) values ('Mestizo');
 Insert into tb_Rasgo (desc_rasgo) values ('Selvático');
-Insert into tb_Rasgo (desc_rasgo) values ('Negro - Afrodescendciente');
 
 Insert into tb_Talla (desc_talla,cod_talla_ran) values ('1.40 a menos',1);
 Insert into tb_Talla (desc_talla,cod_talla_ran) values ('1.41',1);
@@ -313,22 +329,23 @@ VALUES('Carlos','Perez','Zapata','1990-05-23','carlos123@gmail.com','12345','M')
 	  ('Miriam','Zavala','Mier','1994-11-04','miriam22@gmail.com','12345','F')
 GO
 
+
 INSERT INTO tb_Informacion_Usuario(cod_usu,cod_talla,cod_estCiv,cod_rasgo,cod_contex,cod_ing,cod_act,hijos_usu)
-VALUES(1,5,2,3,2,3,4,2),
-	  (2,5,2,3,2,3,4,2),
-	  (3,5,2,3,2,3,4,2),
-	  (4,5,2,3,2,3,4,2),
-	  (5,5,2,3,2,3,4,2),
-	  (6,5,2,3,2,3,4,2)
+VALUES(1,1,1,1,1,1,1,1),
+	  (2,2,2,2,2,2,2,2),
+	  (3,3,3,3,3,3,3,3),
+	  (4,4,4,4,4,4,4,4),
+	  (5,2,2,2,2,2,2,2),
+	  (6,1,2,3,4,2,1,1)
 GO
 
-INSERT INTO tb_Intereses(cod_usu,cod_talla_ran,cod_rasgo,cod_contex,cod_ing,hijos_interes,ing_interes)
-Values	(1,1,3,2,3,'SI','NO'),
-		(2,2,2,3,2,'NO','SI'),
-		(3,3,4,2,1,'SI','SI'),
-		(4,4,3,2,1,'SI','NO'),
-		(5,3,4,1,2,'NO','NO'),
-		(6,7,2,3,3,'SI','SI')
+INSERT INTO tb_Intereses(cod_usu,cod_talla_ran,cod_rasgo,cod_contex,hijos_interes,ing_interes)
+Values	(1,1,3,2,'SI','NO'),
+		(2,2,2,3,'NO','SI'),
+		(3,3,4,2,'SI','SI'),
+		(4,4,3,2,'SI','NO'),
+		(5,3,4,1,'NO','NO'),
+		(6,7,2,3,'SI','SI')
 		GO
 INSERT INTO tb_Cualidades_Usuario(cod_usu,cod_cua)
 VALUES		(1,2),
@@ -360,6 +377,15 @@ VALUES		(1,2,'Hola'),
 			(4,1,'Hi')
 go
 
+INSERT INTO tb_Foto(cod_usu,cod_foto,ruta)
+VALUES (1,1,'usuario1.jpg'),
+	   (2,1,'usuario2.jpg'),
+	   (3,1,'usuario3.jpg'),
+	   (4,1,'usuario4.jpg'),
+	   (5,1,'usuario5.jpg'),
+	   (6,1,'usuario6.jpg')
+GO
+
 select * from tb_Mensaje 
 where cod_usu1=1 and cod_usu2=2 or cod_usu1=2 and cod_usu2=1
 order by fecha_mens
@@ -371,20 +397,120 @@ where cod_usu1=1 and cod_usu2=3 or cod_usu1=3 and cod_usu2=1
 order by fecha_mens
 go
 
-Insert into tb_Foto(cod_usu,foto) select 1,bulkcolumn 
-from openrowset (bulk 'F:\usuarios\usuario1.jpg',single_blob) 
-as BLOB
-go
-
-Insert into tb_Foto(cod_usu,foto) select 4,bulkcolumn 
-from openrowset (bulk 'F:\usuarios\usuario4.jpg',single_blob) 
-as BLOB
-go
-
 SELECT * FROM tb_Foto
 GO
 
-SELECT * FROM tb_Usuario
+
+SELECT * FROM tb_Cualidades_Usuario
+go
+SELECT * FROM tb_Cualidades_Interes
 GO
+
 SELECT * FROM tb_Informacion_Usuario
 GO
+SELECT * FROM tb_Intereses
+GO
+
+SELECT u.*,c.*,f.ruta FROM tb_Usuario u join tb_Compatibilidad c on c.cod_usu2=u.cod_usu join tb_Foto f on f.cod_usu=c.cod_usu2
+WHERE c.cod_usu1=1
+ORDER BY porcentaje DESC
+GO
+
+SELECT * from tb_Usuario
+
+select * from tb_Compatibilidad
+GO
+
+CREATE PROCEDURE pr_insertarCompatibilidad
+	@cod_usu int
+	AS
+	BEGIN
+		DECLARE @codigo int,@sexo_usu char(2)
+
+		SELECT @sexo_usu=sexo_usu FROM tb_Usuario WHERE cod_usu=@cod_usu
+
+		DECLARE usuarios CURSOR LOCAL STATIC READ_ONLY FORWARD_ONLY FOR  
+		SELECT cod_usu
+		FROM tb_Usuario
+		WHERE sexo_usu<>@sexo_usu
+
+		--Elimina tabla para volver a llenarla-------------------------------------------
+		DELETE FROM tb_Compatibilidad where cod_usu1=@cod_usu;
+		--------------------------------------------------------------------------------
+
+		DECLARE @cod_talla_ran1 int,@cod_rasgo1 int,@cod_contex1 int, @cod_act1 int,
+				@hijos_interes1 char(2), @ing_interes1 char(2), @cod_ing1 int
+
+		SELECT @cod_talla_ran1=cod_talla_ran, @cod_rasgo1=cod_rasgo, @cod_contex1=cod_contex,
+		@hijos_interes1=hijos_interes, @ing_interes1=ing_interes 
+		FROM tb_Intereses
+		WHERE cod_usu=@cod_usu
+
+		SELECT @cod_ing1=cod_ing, @cod_act1=cod_act
+		FROM tb_Informacion_Usuario 
+		WHERE  cod_usu=@cod_usu
+
+
+		OPEN usuarios
+		FETCH NEXT FROM usuarios INTO @codigo
+		WHILE @@FETCH_STATUS = 0
+			BEGIN 
+
+			--Variables para el bucle--------------------------------------------------------
+				DECLARE @porcentaje decimal(5,2)
+
+				DECLARE @cod_talla2 int,@cod_estCiv2 int,@cod_rasgo2 int, @cod_talla_ran2 int,
+						@cod_contex2 int, @cod_ing2 int, @cod_act2 int, @hijos_usu2 int 
+				
+				DECLARE @puntaje int
+				SET @puntaje =1
+			--------------------------------------------------------------------------------
+				
+															
+				SELECT @cod_talla2=cod_talla, @cod_estCiv2=cod_estCiv, @cod_rasgo2=cod_rasgo,
+				@cod_contex2=cod_contex, @cod_ing2=cod_ing, @cod_act2=cod_act,@hijos_usu2=hijos_usu
+				FROM tb_Informacion_Usuario
+				WHERE cod_usu=@codigo
+
+				SELECT @cod_talla_ran2=cod_talla_ran FROM tb_Talla WHERE cod_talla=@cod_talla2
+
+				IF @cod_talla_ran1=@cod_talla_ran2
+				SET @puntaje = @puntaje + 1
+
+				IF @cod_estCiv2 <> 2
+				SET @puntaje = @puntaje + 1
+
+				IF @cod_rasgo1 = @cod_rasgo2
+				SET @puntaje = @puntaje + 1
+
+				IF @cod_contex1 = @cod_contex2
+				SET @puntaje = @puntaje + 1
+
+				IF @cod_ing1<=@cod_ing2 or @ing_interes1='No'
+				SET @puntaje = @puntaje +1
+
+				IF @cod_act1=@cod_act2
+				SET  @puntaje = @puntaje + 2
+
+				IF @hijos_usu2 = 0 or @hijos_interes1 ='Si'
+				SET @puntaje = @puntaje + 1
+
+				SET @porcentaje = (@puntaje*100)/9.0
+
+				INSERT INTO tb_Compatibilidad(cod_usu1,cod_usu2,porcentaje)
+				VALUES (@cod_usu,@codigo,@porcentaje)
+
+				FETCH NEXT FROM usuarios INTO @codigo
+			END
+		CLOSE usuarios
+		DEALLOCATE usuarios
+	END
+GO
+
+exec pr_insertarCompatibilidad 1
+exec pr_insertarCompatibilidad 2
+exec pr_insertarCompatibilidad 3
+exec pr_insertarCompatibilidad 4
+exec pr_insertarCompatibilidad 5
+exec pr_insertarCompatibilidad 6
+go

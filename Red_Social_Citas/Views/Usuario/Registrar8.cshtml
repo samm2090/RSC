@@ -17,7 +17,7 @@
     </div>
 </div>
 
-@using (@Html.BeginForm("Perfil", "Usuario", FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (@Html.BeginForm("Registrar9", "Usuario", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     <div class="row">
         <div class="pregunta">
@@ -25,14 +25,15 @@
                 Subir 3 fotos:
             </h3>
             <div class="opcion">
-                <input type="file" name="foto1" id="fileToUpload"/>
+                <input type="file" name="foto1" accept="image/*" onchange="readURL(this);" />
+                <img id="foto1" src="#"  />
+            </div>
+            @*<div class="opcion">
+                <input type="file" name="foto2" accept="image/*" />
             </div>
             <div class="opcion">
-                <input type="file" name="foto2" id="fileToUpload" />
-            </div>
-            <div class="opcion">
-                <input type="file" name="foto3" id="fileToUpload" />
-            </div>
+                <input type="file" name="foto3" accept="image/*" />
+            </div>*@
         </div>
 
         <div class="col-md-offset-8">
@@ -41,4 +42,20 @@
     </div>
 }
 
+<script>
 
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#foto1')
+                    .attr('src', e.target.result)
+                    .width(150)
+                    .height(200);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>

@@ -15,7 +15,7 @@ namespace Infraestructura.Data.SQLServer
         SqlConnection conexion;
         SqlCommand cmd;
      
-        public String IngresarCualidadInteres(Usuario usuario, List<Cualidad> cualidades)
+        public String IngresarCualidadInteres(List<CualidadesInteres> cualidades)
         {
             try
             {
@@ -25,13 +25,14 @@ namespace Infraestructura.Data.SQLServer
                 cmd.CommandType = CommandType.Text;
 
                 conexion.Open();
-                foreach (Cualidad cualidad in cualidades)
+                foreach (CualidadesInteres cualidad in cualidades)
                 {
                     cmd.CommandText = "INSERT INTO tb_Cualidades_Interes(cod_usu,cod_cua) VALUES(@cod_usu,@cod_cua)";
-                    cmd.Parameters.AddWithValue("@cod_usu", usuario.cod_usu);
+                    cmd.Parameters.AddWithValue("@cod_usu", cualidad.cod_usu);
                     cmd.Parameters.AddWithValue("@cod_cua", cualidad.cod_cua);
 
                     cmd.ExecuteNonQuery();
+                    cmd.Parameters.Clear();
                 }
                 return "Se registro cualidades de Interes";
             }

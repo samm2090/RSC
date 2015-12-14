@@ -22,9 +22,6 @@ namespace Dominio.Core.Entities
         [DisplayName("Codigo de contextura")]
         public int cod_contex { get; set; }
 
-        [DisplayName("Codigo de ingresos")]
-        public int cod_ing { get; set; }
-
         [DisplayName("Interes hijos")]
         public String hijos_interes { get; set; }
 

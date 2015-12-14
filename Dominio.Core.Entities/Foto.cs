@@ -17,9 +17,8 @@ namespace Dominio.Core.Entities
         [DisplayName("Codigo de foto")]
         public int cod_foto { get; set; }
 
-        [DisplayName("Foto")]
-        public Byte[] foto { get; set; }
-
+        [DisplayName("Ruta")]
         public String ruta { get; set; }
+
     }
 }
