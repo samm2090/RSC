@@ -94,5 +94,40 @@ namespace Infraestructura.Data.SQLServer
             }
             return foto;
         }
+
+        public void actualizarFoto(Foto foto)
+        {
+            try
+            {
+                conexion = new Conexion().Conectar();
+                cmd = new SqlCommand();
+                cmd.Connection = conexion;
+                cmd.CommandText = "update tb_Foto set ruta=@ruta where cod_usu=@cod_usu and cod_foto=@cod_foto";
+
+                int cod_foto = 1;
+
+                cmd.Parameters.AddWithValue("@cod_usu", foto.cod_usu);
+                cmd.Parameters.AddWithValue("@cod_foto", cod_foto);
+                cmd.Parameters.AddWithValue("@ruta", foto.ruta);
+                cmd.CommandType = CommandType.Text;
+                conexion.Open();
+                cmd.ExecuteNonQuery();
+                
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.ToString());
+
+            }
+            finally
+            {
+                if (conexion.State == ConnectionState.Open)
+                {
+                    conexion.Close();
+                }
+                conexion.Dispose();
+                cmd.Dispose();
+            }
+        }
     }
 }

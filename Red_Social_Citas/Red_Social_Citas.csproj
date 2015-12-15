@@ -227,6 +227,7 @@
     <Content Include="Views\Usuario\Mensajes.cshtml" />
     <Content Include="Views\Usuario\EnviarMensaje.cshtml" />
     <Content Include="Views\Usuario\PerfilCompleto.cshtml" />
+    <Content Include="Views\Usuario\MiPerfilCompleto.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -273,7 +273,7 @@ namespace Red_Social_Citas.Controllers
                                
                 return RedirectToAction("Perfil");
             }
-
+            ViewBag.error = "Credenciales invalidas";
             return RedirectToAction("Index","Index");
         }
 
@@ -294,7 +294,7 @@ namespace Red_Social_Citas.Controllers
                 String cod = Request["cod_usu2"];
 
                 Usuario usuario2 = usuarioManager.BuscarUsuario(Int32.Parse(cod));
-                usuario2.favorito = 1;
+       
                 Session["usuario2"] = usuario2;
 
                 return RedirectToAction("Perfil");
@@ -378,6 +378,85 @@ namespace Red_Social_Citas.Controllers
         {
             Session.Abandon();
             return RedirectToAction("Index", "Index");
+        }
+
+        [HttpPost]
+        public ActionResult Actualizar()
+        {
+            if (Request.Form["perfil"] != null)
+            {
+                return RedirectToAction("MiPerfilCompleto");
+            }
+            else
+            {
+                
+                string ruta1 = Server.MapPath(ConfigurationManager.AppSettings["Fotos"]) +
+                               System.IO.Path.GetFileName(Request.Files["foto1"].FileName);
+
+
+                if (!ruta1.Equals("C:\\Proyecto_DEW\\Red_Social_Citas\\Fotos\\"))
+                {
+                    Request.Files["foto1"].SaveAs(ruta1);
+
+                    Foto foto = new Foto();
+
+                    UsuarioManager usuarioManager = new UsuarioManager();
+
+                    Usuario usuario = (Usuario)Session["usuario"];
+                    foto.cod_usu = usuario.cod_usu;
+                    foto.ruta = Request.Files["foto1"].FileName;
+                    usuarioManager.ActualizarFoto(foto);
+
+                    usuario.foto = foto.ruta;
+
+                    Session["usuario"] = usuario;
+                }
+                return RedirectToAction("Perfil");
+            }
+        }
+
+        public ActionResult MiPerfilCompleto()
+        {
+            UsuarioManager usuarioManager = new UsuarioManager();
+            Usuario usuario = (Usuario)Session["usuario"];
+
+            ViewBag.talla = usuarioManager.buscarTalla(usuario);
+            ViewBag.estCiv = usuarioManager.buscarEstCiv(usuario);
+            ViewBag.rasgo = usuarioManager.buscarRasgo(usuario);
+            ViewBag.contextura = usuarioManager.buscarContextura(usuario);
+            ViewBag.actividad = usuarioManager.buscarActividad(usuario);
+
+            ViewBag.cualidades = usuarioManager.buscarCualidades(usuario);
+
+
+            return View();
+        }
+
+        public ActionResult ActualizarDatos()
+        {
+            Usuario usuarioNuevo = new Usuario();
+            Usuario usuario = (Usuario)Session["usuario"];
+            usuarioNuevo.nom_usu = Request["nom_usu"];
+            usuarioNuevo.apePat_usu = Request["apePat_usu"];
+            usuarioNuevo.apeMat_usu = Request["apeMat_usu"];
+            usuarioNuevo.cod_usu = usuario.cod_usu;
+            
+
+            UsuarioManager usuarioManager = new UsuarioManager();
+
+            usuarioManager.actualizarDatos(usuarioNuevo);
+
+            usuario = usuarioManager.BuscarUsuario(usuario);
+
+
+            Foto foto = new Foto();
+            
+            usuario.foto = usuarioManager.buscarFoto(usuario).ruta;
+
+            Session["usuario"] = usuario;
+
+            return RedirectToAction("MiPerfilCompleto");
+
         }
     }
 }

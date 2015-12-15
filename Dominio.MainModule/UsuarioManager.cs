@@ -161,5 +161,15 @@ namespace Dominio.MainModule
             Cualidad_DAL cualidadDAL = new Cualidad_DAL();
             return cualidadDAL.buscarCualidades(usuario2);
         }
+
+        public void ActualizarFoto(Foto foto)
+        {
+            fotoDAL.actualizarFoto(foto);
+        }
+
+        public void actualizarDatos(Usuario usuario)
+        {
+            usuarioDAL.ActualizarUsuario(usuario);
+        }
     }
 }

@@ -68,6 +68,10 @@
             });
         });
     </script>
-
+    @if (ViewBag.error != null) { 
+    <script type="text/javascript">
+          alert('@ViewBag.error');
+    </script>
+    }
 </body>
 </html>
