@@ -10,6 +10,7 @@ namespace Red_Social_Citas.Controllers
     {
         public ActionResult Index()
         {
+            ViewBag.error = Request["error"];
             return View();
         }
     }

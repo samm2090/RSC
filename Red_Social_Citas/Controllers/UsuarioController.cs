@@ -273,8 +273,8 @@ namespace Red_Social_Citas.Controllers
                                
                 return RedirectToAction("Perfil");
             }
-            ViewBag.error = "Credenciales invalidas";
-            return RedirectToAction("Index","Index");
+            
+            return RedirectToAction("Index","Index",new {error = "Credenciales invalidas"});
         }
 
         [HttpPost]

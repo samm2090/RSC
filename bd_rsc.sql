@@ -412,7 +412,7 @@ SELECT * FROM tb_Foto
 GO
 
 
-SELECT * FROM tb_Cualidades_Usuario
+SELECT * FROM tb_Usuario
 go
 SELECT * FROM tb_Cualidades_Interes
 GO
